@@ -10,6 +10,7 @@ import Error404 from '../UserComponents/Error404'
 import ShopDetail from '../UserComponents/ShopDetail'
 import AdminHome from '../AdminComponents/AdminHome'
 import AdminMaincategory from '../AdminComponents/AdminMaincategory/AdminMaincategory'
+import AdminCreateMaincategory from '../AdminComponents/AdminMaincategory/AdminCreateMaincategory'
 
 export default function App() {
     const Layout = ({ children }) => {
@@ -42,6 +43,7 @@ export default function App() {
                     {/* admin route */}
                     <Route path='/admin' element={<AdminHome />} />
                     <Route path='/admin/maincategory' element={<AdminMaincategory />} />
+                    <Route path='/admin/maincategory/create' element={<AdminCreateMaincategory />} />
                 </Routes>
             </Layout>
         </BrowserRouter>

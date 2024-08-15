@@ -1,4 +1,3 @@
-
 export default function FormValidator(event) {
     let {name,value} = event.target
     switch(name){
@@ -7,6 +6,7 @@ export default function FormValidator(event) {
                 return name + " Field is Mendatory"
             else if(value.length<3||value.length>50)
                 return name + "Length Must Be 3-50 Character"
+            else
             return ""
 
         default:
