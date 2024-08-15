@@ -3,9 +3,9 @@ import Sidebar from '../AdminHome/Sidebar'
 import MainContent from '../AdminHome/MainContent'
 import Navbar from '../AdminHome/Navbar'
 import FormValidator from '../../UserComponents/FormValidators/FormValidator';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
-export default function AdminCreateMaincategory() {
+export default function AdminUpdateMaincategory() {
     let [allData, setAllData] = useState([])
     let [show, setShow] = useState(false)
     let [data, setData] = useState({
@@ -14,11 +14,11 @@ export default function AdminCreateMaincategory() {
     })
 
     let [errorMessage, setErrorMessage] = useState({
-        name: "Name is Mendatory"
+        name: ""
     })
 
     let navigate = useNavigate();
-
+    let {id} = useParams()
 
     function getInputData(e) {
         let { name, value } = e.target
@@ -45,7 +45,7 @@ export default function AdminCreateMaincategory() {
             setShow(true)
         }
         else {
-            let item = allData.find((x) => x.name?.toLocaleLowerCase() === data.name.toLocaleLowerCase())
+            let item = allData.find((x) => x.name?.toLocaleLowerCase() === data.name.toLocaleLowerCase() && x.id !== id)
             if (item) {
                 setShow(true)
                 setErrorMessage((old) => {
@@ -56,8 +56,8 @@ export default function AdminCreateMaincategory() {
                 })
             }
             else {
-                let response = await fetch('http://localhost:8000/maincategory', {
-                    method: "POST",
+                let response = await fetch('http://localhost:8000/maincategory/'+id, {
+                    method: "PUT",
                     headers: {
                         "content-type": "application/json"
                     },
@@ -82,6 +82,8 @@ export default function AdminCreateMaincategory() {
             response = await response.json()
             if (response)
                 setAllData(response)
+            let item = response.find((x) => x.id === id)
+            setData({ ...item })
         })()
     }, [])
     return (
@@ -100,19 +102,19 @@ export default function AdminCreateMaincategory() {
                             <div className="row">
                                 <div className="col-md-6 mb-3">
                                     <label>Name*</label>
-                                    <input type="text" name="name" onChange={getInputData} className={`form-control border-2 ${show && errorMessage.name ? 'border-danger' : 'border-dark'} `} placeholder='Maincategory Name' />
+                                    <input type="text" name="name" value={data.name} onChange={getInputData} className={`form-control border-2 ${show && errorMessage.name ? 'border-danger' : 'border-dark'} `} placeholder='Maincategory Name' />
                                     {show && errorMessage.name ? <p className='text-danger text-capitalize'>{errorMessage.name}</p> : ""}
                                 </div>
                                 <div className="col-md-6 mb-3">
                                     <label>Active*</label>
-                                    <select name="active" onChange={getInputData} className='form-control border-2 border-dark'>
+                                    <select name="active" value={data.active?"1":"0"} onChange={getInputData} className='form-control border-2 border-dark'>
                                         <option value="1">Yes</option>
                                         <option value="0">No</option>
                                     </select>
                                 </div>
                             </div>
                             <div className='mb-3'>
-                                <button type='submit' className='btn btn-info w-100 border-2'>Create</button>
+                                <button type='submit' className='btn btn-info w-100 border-2'>Update</button>
                             </div>
                         </form>
                     </div>

@@ -11,6 +11,7 @@ import ShopDetail from '../UserComponents/ShopDetail'
 import AdminHome from '../AdminComponents/AdminHome'
 import AdminMaincategory from '../AdminComponents/AdminMaincategory/AdminMaincategory'
 import AdminCreateMaincategory from '../AdminComponents/AdminMaincategory/AdminCreateMaincategory'
+import AdminUpdateMaincategory from '../AdminComponents/AdminMaincategory/AdminUpdateMaincategory'
 
 export default function App() {
     const Layout = ({ children }) => {
@@ -44,6 +45,7 @@ export default function App() {
                     <Route path='/admin' element={<AdminHome />} />
                     <Route path='/admin/maincategory' element={<AdminMaincategory />} />
                     <Route path='/admin/maincategory/create' element={<AdminCreateMaincategory />} />
+                    <Route path='/admin/maincategory/update/:id' element={<AdminUpdateMaincategory />} />
                 </Routes>
             </Layout>
         </BrowserRouter>
