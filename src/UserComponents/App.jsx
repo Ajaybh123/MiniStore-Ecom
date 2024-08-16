@@ -8,10 +8,20 @@ import Shop from '../UserComponents/Shop'
 import Contact from '../UserComponents/Contact'
 import Error404 from '../UserComponents/Error404'
 import ShopDetail from '../UserComponents/ShopDetail'
+
 import AdminHome from '../AdminComponents/AdminHome'
+
 import AdminMaincategory from '../AdminComponents/AdminMaincategory/AdminMaincategory'
 import AdminCreateMaincategory from '../AdminComponents/AdminMaincategory/AdminCreateMaincategory'
 import AdminUpdateMaincategory from '../AdminComponents/AdminMaincategory/AdminUpdateMaincategory'
+
+import AdminSubcategory from '../AdminComponents/AdminSubcategory/AdminSubcategory'
+import AdminCreateSubcategory from '../AdminComponents/AdminSubcategory/AdminCreateSubcategory'
+import AdminUpdateSubcategory from '../AdminComponents/AdminSubcategory/AdminUpdateSubcategory'
+
+import AdminBrand from '../AdminComponents/AdminBrand/AdminBrand'
+import AdminCreateBrand from '../AdminComponents/AdminBrand/AdminCreateBrand'
+import AdminUpdateBrand from '../AdminComponents/AdminBrand/AdminUpdateBrand'
 
 export default function App() {
     const Layout = ({ children }) => {
@@ -43,9 +53,18 @@ export default function App() {
 
                     {/* admin route */}
                     <Route path='/admin' element={<AdminHome />} />
+
                     <Route path='/admin/maincategory' element={<AdminMaincategory />} />
                     <Route path='/admin/maincategory/create' element={<AdminCreateMaincategory />} />
                     <Route path='/admin/maincategory/update/:id' element={<AdminUpdateMaincategory />} />
+
+                    <Route path='/admin/subcategory' element={<AdminSubcategory />} />
+                    <Route path='/admin/subcategory/create' element={<AdminCreateSubcategory />} />
+                    <Route path='/admin/subcategory/update/:id' element={<AdminUpdateSubcategory />} />
+
+                    <Route path='/admin/brand' element={<AdminBrand />} />
+                    <Route path='/admin/brand/create' element={<AdminCreateBrand />} />
+                    <Route path='/admin/brand/update/:id' element={<AdminUpdateBrand />} />
                 </Routes>
             </Layout>
         </BrowserRouter>
