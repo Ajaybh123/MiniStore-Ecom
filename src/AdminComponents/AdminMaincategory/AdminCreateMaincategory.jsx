@@ -4,6 +4,9 @@ import MainContent from '../AdminHome/MainContent'
 import Navbar from '../AdminHome/Navbar'
 import FormValidator from '../../UserComponents/FormValidators/FormValidator';
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { getMaincategory, createMaincategory } from '../../Redux/ActionCreator/MaincategoryActionCreator'
 
 export default function AdminCreateMaincategory() {
     let [allData, setAllData] = useState([])
@@ -17,7 +20,9 @@ export default function AdminCreateMaincategory() {
         name: "Name is Mendatory"
     })
 
-    let navigate = useNavigate();
+    let dispatch = useDispatch()
+    let MaincategoryStateData = useSelector(state => state.MaincategoryStateData)
+    let navigate = useNavigate()
 
 
     function getInputData(e) {
@@ -38,7 +43,7 @@ export default function AdminCreateMaincategory() {
         })
     }
 
-    async function postData(e) {
+    function postData(e) {
         e.preventDefault()
         let error = Object.values(errorMessage).find((x) => x !== "")
         if (error) {
@@ -56,34 +61,21 @@ export default function AdminCreateMaincategory() {
                 })
             }
             else {
-                let response = await fetch('http://localhost:8000/maincategory', {
-                    method: "POST",
-                    headers: {
-                        "content-type": "application/json"
-                    },
-                    body: JSON.stringify({ ...data })
-                })
-                if (response)
-                    navigate('/admin/maincategory')
-                else
-                    alert("Something Went Wrong")
+                dispatch(createMaincategory({ ...data }))
+                navigate('/admin/maincategory')
             }
         }
     }
 
     useEffect(() => {
-        (async () => {
-            let response = await fetch('http://localhost:8000/maincategory', {
-                method: "GET",
-                headers: {
-                    "content-type": "application/json"
-                }
-            })
-            response = await response.json()
-            if (response)
-                setAllData(response)
+        (() => {
+            dispatch(getMaincategory())
+            if (MaincategoryStateData.length)
+                setAllData(MaincategoryStateData)
+            else
+                setAllData([])
         })()
-    }, [])
+    }, [MaincategoryStateData.length])
     return (
         <>
             <div className='app d-flex'>

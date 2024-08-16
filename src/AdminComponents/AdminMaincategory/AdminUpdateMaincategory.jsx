@@ -4,6 +4,9 @@ import MainContent from '../AdminHome/MainContent'
 import Navbar from '../AdminHome/Navbar'
 import FormValidator from '../../UserComponents/FormValidators/FormValidator';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { getMaincategory, updateMaincategory } from '../../Redux/ActionCreator/MaincategoryActionCreator'
 
 export default function AdminUpdateMaincategory() {
     let [allData, setAllData] = useState([])
@@ -18,7 +21,9 @@ export default function AdminUpdateMaincategory() {
     })
 
     let navigate = useNavigate();
-    let {id} = useParams()
+    let { id } = useParams()
+    let dispatch = useDispatch();
+    let MaincategoryStateData = useSelector(state => state.MaincategoryStateData)
 
     function getInputData(e) {
         let { name, value } = e.target
@@ -38,7 +43,7 @@ export default function AdminUpdateMaincategory() {
         })
     }
 
-    async function postData(e) {
+    function postData(e) {
         e.preventDefault()
         let error = Object.values(errorMessage).find((x) => x !== "")
         if (error) {
@@ -51,41 +56,28 @@ export default function AdminUpdateMaincategory() {
                 setErrorMessage((old) => {
                     return {
                         ...old,
-                        "name": "Maincategory Name is already exist"
+                        'name': "Maincategory Name is already exist"
                     }
                 })
             }
             else {
-                let response = await fetch('http://localhost:8000/maincategory/'+id, {
-                    method: "PUT",
-                    headers: {
-                        "content-type": "application/json"
-                    },
-                    body: JSON.stringify({ ...data })
-                })
-                if (response)
-                    navigate('/admin/maincategory')
-                else
-                    alert("Something Went Wrong")
+                dispatch(updateMaincategory({ ...data }))
+                navigate("/admin/maincategory")
             }
         }
     }
 
     useEffect(() => {
-        (async () => {
-            let response = await fetch('http://localhost:8000/maincategory', {
-                method: "GET",
-                headers: {
-                    "content-type": "application/json"
-                }
-            })
-            response = await response.json()
-            if (response)
-                setAllData(response)
-            let item = response.find((x) => x.id === id)
-            setData({ ...item })
+        (() => {
+            dispatch(getMaincategory())
+            if (MaincategoryStateData.length) {
+                setAllData(MaincategoryStateData)
+                setData(MaincategoryStateData.find((x)=>x.id===id))
+            }
+            else
+                setAllData([])
         })()
-    }, [])
+    }, [MaincategoryStateData.length])
     return (
         <>
             <div className='app d-flex'>
@@ -107,7 +99,7 @@ export default function AdminUpdateMaincategory() {
                                 </div>
                                 <div className="col-md-6 mb-3">
                                     <label>Active*</label>
-                                    <select name="active" value={data.active?"1":"0"} onChange={getInputData} className='form-control border-2 border-dark'>
+                                    <select name="active" value={data.active ? "1" : "0"} onChange={getInputData} className='form-control border-2 border-dark'>
                                         <option value="1">Yes</option>
                                         <option value="0">No</option>
                                     </select>
