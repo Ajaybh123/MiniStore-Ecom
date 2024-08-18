@@ -75,7 +75,6 @@ export default function AdminCreateProduct() {
 
     function postData(e) {
         e.preventDefault()
-        console.log(data.pic)
         let error = Object.values(errorMessage).find((x) => x !== "")
         if (error) {
             setShow(true)

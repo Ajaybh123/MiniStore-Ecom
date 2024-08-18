@@ -78,7 +78,11 @@ export default function AdminTestimonial() {
                                                     <img src={item.pic} height={50} width={50} alt="Testimonial pic" />
                                                     </Link>
                                                 </td>
-                                                <td className='messge-data'>{item.message}</td>
+                                                <td >
+                                                    <div className='message-table'>
+                                                    {item.message}
+                                                    </div>
+                                                    </td>
                                                 <td className={`${item.active ? "text-success" : "text-danger"}`}>{item.active ? "Yes" : "No"}</td>
                                                 <td><Link to={`/admin/testimonial/update/${item.id}`} className='btn'><i className='fa fa-edit text-success'></i></Link></td>
                                                 <td><button className='btn' onClick={() => deleteItem(item.id)}><i className='fa fa-trash text-danger'></i></button></td>

@@ -54,7 +54,7 @@ export default function AdminProduct() {
                             <Link to="/admin/product/create" className='btn btn-dark'><i className='fa fa-plus'></i> Add</Link>
                         </div>
 
-                        <div className='table-responsive text-center mx-3'>
+                        <div className='table-responsive mx-3'>
                             <table className='table table-bordered display' id='dataTable' style={{ width: "100%" }}>
                                 <thead>
                                     <tr>
@@ -93,13 +93,15 @@ export default function AdminProduct() {
                                                 <td>&#8377;{item.finalPrice}</td>
                                                 <td>{item.quantity}</td>
                                                 <td>
+                                                    <div style={{width:300}}>
                                                     {
                                                         item.pic.map((img, index) => {
                                                             return <Link key={index} to={`${img}`} target='_blank' rel='noreferrer'>
-                                                                <img src={img} height={50} width={50} alt="product img" />
+                                                                <img src={img} height={50} width={50} style={{marginLeft:5,marginBottom:5}} alt="product img" />
                                                             </Link>
                                                         })
                                                     }
+                                                    </div>
                                                 </td>
                                                 <td className={`${item.active ? "text-success" : "text-danger"}`}>{item.active ? "Yes" : "No"}</td>
                                                 <td><Link to={`/admin/product/update/${item.id}`} className='btn'><i className='fa fa-edit text-success'></i></Link></td>

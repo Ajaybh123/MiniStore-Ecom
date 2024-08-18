@@ -10,30 +10,26 @@ export default function Fact() {
                     <div className="row g-4 justify-content-center">
                         <div className="col-md-6 col-lg-6 col-xl-3">
                             <div className="counter bg-white rounded p-5">
-                                <i className="fa fa-users text-dark"></i>
-                                <h4>satisfied customers</h4>
-                                <h1>1963</h1>
+                                <i className="fa fa-shield-alt text-dark"></i>
+                                <h4>Trusted Ministore Company</h4>
+                            </div>
+                        </div>
+                        <div className="col-md-6 col-lg-6 col-xl-3">
+                            <div className="counter bg-white rounded p-5">
+                                <i className="fa fa-exchange-alt text-dark"></i>
+                                <h4>10 Days Refund Policy</h4>
+                            </div>
+                        </div>
+                        <div className="col-md-6 col-lg-6 col-xl-3">
+                            <div className="counter bg-white rounded p-5">
+                                <i className="fa fa-truck text-dark"></i>
+                                <h4>Fast and Free Delivery</h4>
                             </div>
                         </div>
                         <div className="col-md-6 col-lg-6 col-xl-3">
                             <div className="counter bg-white rounded p-5">
                                 <i className="fa fa-users text-dark"></i>
-                                <h4>quality of service</h4>
-                                <h1>99%</h1>
-                            </div>
-                        </div>
-                        <div className="col-md-6 col-lg-6 col-xl-3">
-                            <div className="counter bg-white rounded p-5">
-                                <i className="fa fa-users text-dark"></i>
-                                <h4>quality certificates</h4>
-                                <h1>33</h1>
-                            </div>
-                        </div>
-                        <div className="col-md-6 col-lg-6 col-xl-3">
-                            <div className="counter bg-white rounded p-5">
-                                <i className="fa fa-users text-dark"></i>
-                                <h4>Available Products</h4>
-                                <h1>789</h1>
+                                <h4>24/7 Customer Support</h4>
                             </div>
                         </div>
                     </div>

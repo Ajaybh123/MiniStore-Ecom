@@ -1,10 +1,15 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css'
 
+import {getTestimonial} from '../../Redux/ActionCreator/TestimonialActionCreator'
+import { useDispatch, useSelector } from 'react-redux';
 export default function Testimonial() {
+    let [testimonial,setTestimonial] = useState([])
+    let dispatch = useDispatch()
+    let TestimonialStateData = useSelector(state=>state.TestimonialStateData)
     const option = {
         responsive: {
             0: {
@@ -24,6 +29,14 @@ export default function Testimonial() {
         nav: true,
         navText: ['<button class="btn border border-dark text-info" style:"width:80px;border-radius:50px"><i class="fa fa-arrow-left"></i></button>', '<button class="btn border border-dark text-info"><i class="fa fa-arrow-right"></i></button>']
     }
+
+    useEffect(()=>{
+        (()=>{
+            dispatch(getTestimonial())
+            if(TestimonialStateData.length)
+                setTestimonial(TestimonialStateData)
+        })()
+    },[TestimonialStateData.length])
     return (
         <>
             {/* <!-- Tastimonial Start --> */}
@@ -35,81 +48,36 @@ export default function Testimonial() {
                     </div>
                     <div className="testimonial-carousel">
                         <OwlCarousel className='owl-theme' {...option}>
-                            <div className="testimonial-item ms-2 img-border-radius bg-light rounded p-4">
-                                <div className="position-relative">
-                                    <i className="fa fa-quote-right fa-2x text-dark position-absolute" style={{ bottom: "30px", right: 0 }}></i>
-                                    <div className="mb-4 pb-4 border-bottom border-dark">
-                                        <p className="mb-0">Lorem Ipsum is simply dummy text of the printing Ipsum has been the industry's standard dummy text ever since the 1500s,
-                                        </p>
-                                    </div>
-                                    <div className="d-flex align-items-center flex-nowrap">
-                                        <div className="bg-dark rounded">
-                                            <img src="img/testimonial-1.jpg" className="img-fluid rounded" style={{ width: " 100px", height: "100px" }} alt="" />
+                            {
+                                testimonial.map((item,index)=>{
+                                    return <div className="testimonial-item ms-2 img-border-radius bg-light rounded p-4">
+                                    <div className="position-relative">
+                                        <i className="fa fa-quote-right fa-2x text-dark position-absolute" style={{ bottom: "30px", right: 0 }}></i>
+                                        <div className="mb-4 pb-4 border-bottom border-dark">
+                                            <p className="mb-0 message-table">{item.message}
+                                            </p>
                                         </div>
-                                        <div className="ms-4 d-block">
-                                            <h4 className="text-dark">Client Name</h4>
-                                            <p className="m-0 pb-3">Profession</p>
-                                            <div className="d-flex pe-5">
-                                                <i className="fas fa-star text-info"></i>
-                                                <i className="fas fa-star text-info"></i>
-                                                <i className="fas fa-star text-info"></i>
-                                                <i className="fas fa-star text-info"></i>
-                                                <i className="fas fa-star"></i>
+                                        <div className="d-flex align-items-center flex-nowrap">
+                                            <div className="bg-dark rounded">
+                                                <img src={item.pic} className="img-fluid rounded" style={{ width: " 100px", height: "100px" }} alt="" />
+                                            </div>
+                                            <div className="ms-4 d-block">
+                                                <h4 className="text-dark">{item.name}</h4>
+                                                <div className="d-flex pe-5">
+                                                    <i className="fas fa-star text-info"></i>
+                                                    <i className="fas fa-star text-info"></i>
+                                                    <i className="fas fa-star text-info"></i>
+                                                    <i className="fas fa-star text-info"></i>
+                                                    <i className="fas fa-star"></i>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="testimonial-item ms-2 img-border-radius bg-light rounded p-4">
-                                <div className="position-relative">
-                                    <i className="fa fa-quote-right fa-2x text-dark position-absolute" style={{ bottom: "30px", right: 0 }}></i>
-                                    <div className="mb-4 pb-4 border-bottom border-dark">
-                                        <p className="mb-0">Lorem Ipsum is simply dummy text of the printing Ipsum has been the industry's standard dummy text ever since the 1500s,
-                                        </p>
-                                    </div>
-                                    <div className="d-flex align-items-center flex-nowrap">
-                                        <div className="bg-dark rounded">
-                                            <img src="img/testimonial-1.jpg" className="img-fluid rounded" style={{ width: "100px", height: "100px" }} alt="" />
-                                        </div>
-                                        <div className="ms-4 d-block">
-                                            <h4 className="text-dark">Client Name</h4>
-                                            <p className="m-0 pb-3">Profession</p>
-                                            <div className="d-flex pe-5">
-                                                <i className="fas fa-star text-info"></i>
-                                                <i className="fas fa-star text-info"></i>
-                                                <i className="fas fa-star text-info"></i>
-                                                <i className="fas fa-star text-info"></i>
-                                                <i className="fas fa-star text-info"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="testimonial-item ms-2 img-border-radius bg-light rounded p-4">
-                                <div className="position-relative">
-                                    <i className="fa fa-quote-right fa-2x text-dark position-absolute" style={{ bottom: "30px", right: 0 }}></i>
-                                    <div className="mb-4 pb-4 border-bottom border-dark">
-                                        <p className="mb-0">Lorem Ipsum is simply dummy text of the printing Ipsum has been the industry's standard dummy text ever since the 1500s,
-                                        </p>
-                                    </div>
-                                    <div className="d-flex align-items-center flex-nowrap">
-                                        <div className="bg-dark rounded">
-                                            <img src="img/testimonial-1.jpg" className="img-fluid rounded" style={{ width: " 100px", height: "100px" }} alt="" />
-                                        </div>
-                                        <div className="ms-4 d-block">
-                                            <h4 className="text-dark">Client Name</h4>
-                                            <p className="m-0 pb-3">Profession</p>
-                                            <div className="d-flex pe-5">
-                                                <i className="fas fa-star text-info"></i>
-                                                <i className="fas fa-star text-info"></i>
-                                                <i className="fas fa-star text-info"></i>
-                                                <i className="fas fa-star text-info"></i>
-                                                <i className="fas fa-star text-info"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                })
+                            }
+                            
+                           
                         </OwlCarousel>
                     </div>
                 </div>
