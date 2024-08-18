@@ -1,5 +1,12 @@
 
 /*** Spinner Start ***/
+
+.message-data{
+    height: 50%;
+    width: 100%;
+
+
+}
 #spinner {
     opacity: 0;
     visibility: hidden;

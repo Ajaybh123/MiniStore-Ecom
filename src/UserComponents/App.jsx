@@ -23,6 +23,14 @@ import AdminBrand from '../AdminComponents/AdminBrand/AdminBrand'
 import AdminCreateBrand from '../AdminComponents/AdminBrand/AdminCreateBrand'
 import AdminUpdateBrand from '../AdminComponents/AdminBrand/AdminUpdateBrand'
 
+import AdminTestimonial from '../AdminComponents/AdminTestimonial/AdminTestimonial'
+import AdminCreateTestimonial from '../AdminComponents/AdminTestimonial/AdminCreateTestimonial'
+import AdminUpdateTestimonial from '../AdminComponents/AdminTestimonial/AdminUpdateTestimonial'
+
+import AdminProduct from '../AdminComponents/AdminProduct/AdminProduct'
+import AdminCreateProduct from '../AdminComponents/AdminProduct/AdminCreateProduct'
+import AdminUpdateProduct from '../AdminComponents/AdminProduct/AdminUpdateProduct'
+
 export default function App() {
     const Layout = ({ children }) => {
         const location = useLocation();
@@ -65,6 +73,14 @@ export default function App() {
                     <Route path='/admin/brand' element={<AdminBrand />} />
                     <Route path='/admin/brand/create' element={<AdminCreateBrand />} />
                     <Route path='/admin/brand/update/:id' element={<AdminUpdateBrand />} />
+
+                    <Route path='/admin/testimonial' element={<AdminTestimonial />} />
+                    <Route path='/admin/testimonial/create' element={<AdminCreateTestimonial />} />
+                    <Route path='/admin/testimonial/update/:id' element={<AdminUpdateTestimonial />} />
+
+                    <Route path='/admin/product' element={<AdminProduct />} />
+                    <Route path='/admin/product/create' element={<AdminCreateProduct />} />
+                    <Route path='/admin/product/update/:id' element={<AdminUpdateProduct />} />
                 </Routes>
             </Layout>
         </BrowserRouter>

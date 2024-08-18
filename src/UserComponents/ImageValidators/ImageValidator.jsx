@@ -9,7 +9,20 @@ export default function ImageValidator(event) {
             return "Invalid Pic Type Please Upload .jpg .jpeg .png or .gif image"
     }
     else {
-        return ""
+        let error = []
+        Array.from(files).forEach((item,index) => {
+            let message = ""
+            if(item.size > 1048576)
+            message = `Pic ${index+1} size is more then 1 MB please upload an image upto 1MB`
+        else if (files[0].type === "image/jpg" || files[0].type === "image/jpeg" || files[0].type === "image/png" || files[0].type === "image/gif")
+            message = ""
+        else
+            message = `Invalid Pic ${index+1} Type Please Upload .jpg .jpeg .png or .gif image`
+
+            if(message !== "")
+                error.push(message)
+        })  
+        return error.length?error:""
     }
 
 }

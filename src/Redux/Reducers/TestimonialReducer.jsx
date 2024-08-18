@@ -14,6 +14,8 @@ export default function TestimonialReducer(state = [], action) {
         case UPDATE_TESTIMONIAL_RED:
             index = state.findIndex((x) => x.id === action.payload.id)
             state[index].name = action.payload.name
+            state[index].message = action.payload.message
+            state[index].pic = action.payload.pic
             state[index].active = action.payload.active
             return state
 

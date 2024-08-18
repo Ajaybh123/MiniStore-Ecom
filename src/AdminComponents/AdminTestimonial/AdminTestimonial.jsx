@@ -8,27 +8,27 @@ import $ from "jquery"
 import "datatables.net"
 import "datatables.net-dt/css/dataTables.dataTables.css"
 
-import { getBrand, deleteBrand } from '../../Redux/ActionCreator/BrandActionCreator'
+import { getTestimonial, deleteTestimonial } from '../../Redux/ActionCreator/TestimonialActionCreator'
 import { useDispatch, useSelector } from 'react-redux';
 
-export default function AdminBrand() {
+export default function AdminTestimonial() {
     const tableRef = useRef()
     let [data, setData] = useState([])
     let dispatch = useDispatch()
-    let BrandStateData = useSelector(state => state.BrandStateData)
+    let TestimonialStateData = useSelector(state => state.TestimonialStateData)
 
 
     function deleteItem(id) {
         if (window.confirm("Are you really want to delete that item?")) {
-            dispatch(deleteBrand({ id: id }))
+            dispatch(deleteTestimonial({ id: id }))
             getAPIData()
         }
     }
 
     function getAPIData() {
-        dispatch(getBrand())
-        if (BrandStateData.length){
-            setData(BrandStateData)
+        dispatch(getTestimonial())
+        if (TestimonialStateData.length){
+            setData(TestimonialStateData)
             setTimeout(()=>{
             $('#dataTable').DataTable()
             },100)
@@ -39,7 +39,7 @@ export default function AdminBrand() {
 
     useEffect(() => {
         getAPIData()
-    }, [BrandStateData.length])
+    }, [TestimonialStateData.length])
 
    
     return (
@@ -50,8 +50,8 @@ export default function AdminBrand() {
                     <Navbar />
                     <div className="container-fluid my-3">
                         <div className="d-flex border-bottom border-2 text-center p-2  justify-content-between rounded mx-3 my-4">
-                            <h4>Brand</h4>
-                            <Link to="/admin/brand/create" className='btn btn-dark'><i className='fa fa-plus'></i> Add</Link>
+                            <h4>Testimonial</h4>
+                            <Link to="/admin/testimonial/create" className='btn btn-dark'><i className='fa fa-plus'></i> Add</Link>
                         </div>
 
                         <div className='table-responsive text-center mx-3'>
@@ -61,6 +61,7 @@ export default function AdminBrand() {
                                         <th>Id</th>
                                         <th>Name</th>
                                         <th>Pic</th>
+                                        <th>Message</th>
                                         <th>Active</th>
                                         <th>Edit</th>
                                         <th>Delete</th>
@@ -73,12 +74,13 @@ export default function AdminBrand() {
                                                 <td>{item.id}</td>
                                                 <td>{item.name}</td>
                                                 <td>
-                                                    <Link to={`${item.pic}`} target='_blank' rel='noreferrer'>
-                                                    <img src={item.pic} height={50} width={50} alt="brand pic" />
+                                                    <Link to={`${item.pic}`} target='_blank'>
+                                                    <img src={item.pic} height={50} width={50} alt="Testimonial pic" />
                                                     </Link>
                                                 </td>
+                                                <td className='messge-data'>{item.message}</td>
                                                 <td className={`${item.active ? "text-success" : "text-danger"}`}>{item.active ? "Yes" : "No"}</td>
-                                                <td><Link to={`/admin/brand/update/${item.id}`} className='btn'><i className='fa fa-edit text-success'></i></Link></td>
+                                                <td><Link to={`/admin/testimonial/update/${item.id}`} className='btn'><i className='fa fa-edit text-success'></i></Link></td>
                                                 <td><button className='btn' onClick={() => deleteItem(item.id)}><i className='fa fa-trash text-danger'></i></button></td>
                                             </tr>
                                         })
