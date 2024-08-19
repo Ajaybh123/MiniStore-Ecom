@@ -1,6 +1,12 @@
 
 /*** Spinner Start ***/
-
+.category_dropdown{
+    height: 460px;
+    overflow: auto;
+}
+.category_dropdown::-webkit-scrollbar{
+    display: none;
+}
 .message-table{
     height: 100px;
     width: 100%;

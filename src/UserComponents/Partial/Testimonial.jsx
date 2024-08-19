@@ -40,8 +40,8 @@ export default function Testimonial() {
     return (
         <>
             {/* <!-- Tastimonial Start --> */}
-            <div className="container-fluid testimonial py-5">
-                <div className="container py-5">
+            <div className="container-fluid testimonial">
+                <div className="container">
                     <div className="testimonial-header text-center">
                         <h4 className="text-info">Our Testimonial</h4>
                         <h1 className="display-5 mb-5 text-dark">Our Client Saying!</h1>
@@ -50,7 +50,7 @@ export default function Testimonial() {
                         <OwlCarousel className='owl-theme' {...option}>
                             {
                                 testimonial.map((item,index)=>{
-                                    return <div className="testimonial-item ms-2 img-border-radius bg-light rounded p-4">
+                                    return <div key={index} className="testimonial-item ms-2 img-border-radius bg-light rounded p-4">
                                     <div className="position-relative">
                                         <i className="fa fa-quote-right fa-2x text-dark position-absolute" style={{ bottom: "30px", right: 0 }}></i>
                                         <div className="mb-4 pb-4 border-bottom border-dark">

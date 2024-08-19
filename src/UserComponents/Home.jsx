@@ -51,15 +51,15 @@ export default function Home() {
                                 <div className="carousel-inner" role="listbox">
                                     <div className="carousel-item active rounded">
                                         <img src="img/men.jpg" className="img-fluid w-100 h-100 bg-dark rounded" alt="First slide" />
-                                        <Link to="/shop?mc=male" className="btn px-4 py-2 text-white rounded">Shop Now</Link>
+                                        <Link to="/shop?mc=Male" className="btn px-4 py-2 text-white rounded">Shop Now</Link>
                                     </div>
                                     <div className="carousel-item rounded">
                                         <img src="img/female.jpg" className="img-fluid w-100 h-100 bg-dark rounded" alt="Second slide" />
-                                        <Link to="/shop?mc=female" className="btn px-4 py-2 text-white rounded">Shop Now</Link>
+                                        <Link to="/shop?mc=Female" className="btn px-4 py-2 text-white rounded">Shop Now</Link>
                                     </div>
                                     <div className="carousel-item rounded">
                                         <img src="img/kid.jpg" className="img-fluid w-100 h-100 rounded" alt="Third slide" />
-                                        <Link to="/shop?mc=kid" className="btn px-4 py-2 text-white rounded">Shop Now</Link>
+                                        <Link to="/shop?mc=Kids" className="btn px-4 py-2 text-white rounded">Shop Now</Link>
                                     </div>
                                 </div>
                                 <button className="carousel-control-prev" type="button" data-bs-target="#carouselId" data-bs-slide="prev">
@@ -77,8 +77,8 @@ export default function Home() {
             </div>
             {/* <!-- Hero End --> */}
             <Category title="Products Category" data={products.slice(0,12)}/>
-            <Latest />
-            <Bestsellar />
+            <Latest title="Latest Products" data={products.slice(0,10)} />
+            <Bestsellar title="BestSeller Products" data={products.slice(0,9)} />
             <Fact />
             <Testimonial />
         </>

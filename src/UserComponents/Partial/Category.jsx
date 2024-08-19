@@ -52,18 +52,18 @@ export default function Category({ title, data }) {
                                                     return <div key={index} className="col-md-6 col-lg-4 col-xl-3">
                                                         <div className="rounded position-relative fruite-item">
                                                             <div className="fruite-img">
-                                                                <img src={item.pic[0]} style={{height:250}} className="img-fluid w-100 rounded-top" alt="" />
+                                                                <img src={item.pic[0]} style={{ height: 250 }} className="img-fluid w-100 rounded-top" alt="" />
                                                             </div>
                                                             <div className="text-white bg-dark px-3 py-1 rounded position-absolute" style={{ top: "10px", left: "10px" }}>{item.brand}</div>
                                                             <div className="p-4 border border-dark border-top-0 rounded-bottom">
-                                                                <Link to={`/product/${item.id}`}><h4 style={{height:50}}>{item.name}</h4></Link>
+                                                                <Link to={`/product/${item.id}`}><h4 style={{ height: 50 }}>{item.name}</h4></Link>
                                                                 <div className="d-flex justify-content-between flex-lg-wrap">
-                                                                <p>&#8377;<del className='text-danger'>{item.basePrice}</del></p>
-                                                                <p className={`${item.stock?"text-success":"text-danger"}`}>{item.stock?`(In Stock / only ${item.quantity} Left)`:"(Out of Stock)"}</p>
+                                                                    <p>&#8377;<del className='text-danger'>{item.basePrice}</del></p>
+                                                                    <p className={`${item.stock ? "text-success" : "text-danger"}`}>{item.stock ? `(In Stock / only ${item.quantity} Left)` : "(Out of Stock)"}</p>
                                                                 </div>
                                                                 <div className="d-flex justify-content-between flex-lg-wrap">
-                                                                <p>&#8377;{item.finalPrice} <sup>{item.discount}% off</sup></p>
-                                                                <a href="#" className="btn border border-info rounded-pill px-3 text-info"><i className="fa fa-shopping-bag me-2 text-info"></i> Add to cart</a>
+                                                                    <p>&#8377;{item.finalPrice} <sup>{item.discount}% off</sup></p>
+                                                                    <a href="#" className="btn border border-info rounded-pill px-3 text-info"><i className="fa fa-shopping-bag me-2 text-info"></i> Add to cart</a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -80,7 +80,7 @@ export default function Category({ title, data }) {
                                     <div className="col-lg-12">
                                         <div className="row g-4">
                                             {
-                                            
+
                                             }
                                         </div>
                                     </div>
