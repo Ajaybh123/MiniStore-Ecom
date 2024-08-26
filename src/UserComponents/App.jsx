@@ -30,6 +30,7 @@ import AdminUpdateTestimonial from '../AdminComponents/AdminTestimonial/AdminUpd
 import AdminProduct from '../AdminComponents/AdminProduct/AdminProduct'
 import AdminCreateProduct from '../AdminComponents/AdminProduct/AdminCreateProduct'
 import AdminUpdateProduct from '../AdminComponents/AdminProduct/AdminUpdateProduct'
+import Product from './Product'
 
 export default function App() {
     const Layout = ({ children }) => {
@@ -55,6 +56,7 @@ export default function App() {
                     <Route path='/about' element={<About />} />
                     <Route path='/shop' element={<Shop />} />
                     <Route path='/shop-detail' element={<ShopDetail />} />
+                    <Route path='/product/:id' element={<Product />} />
                     <Route path='/contact' element={<Contact />} />
                     <Route path='*' element={<Error404 />} />
 

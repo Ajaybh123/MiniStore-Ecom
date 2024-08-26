@@ -48,6 +48,7 @@ export default function Category({ title, data }) {
                                     <div className="col-lg-12">
                                         <div className="row g-4">
                                             {
+                                                data.some((x) => x.maincategory === "Male")?
                                                 data.map((item, index) => {
                                                     return <div key={index} className="col-md-6 col-lg-4 col-xl-3">
                                                         <div className="rounded position-relative fruite-item">
@@ -63,12 +64,14 @@ export default function Category({ title, data }) {
                                                                 </div>
                                                                 <div className="d-flex justify-content-between flex-lg-wrap">
                                                                     <p>&#8377;{item.finalPrice} <sup>{item.discount}% off</sup></p>
-                                                                    <a href="#" className="btn border border-info rounded-pill px-3 text-info"><i className="fa fa-shopping-bag me-2 text-info"></i> Add to cart</a>
+                                                                    <Link to={`/product/${item.id}`} className="btn border border-info rounded-pill px-3 text-info"><i className="fa fa-shopping-bag me-2 text-info"></i> Add to cart</Link>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 })
+                                                :
+                                                <p>No Male products available.</p>
                                             }
 
                                         </div>
@@ -80,7 +83,27 @@ export default function Category({ title, data }) {
                                     <div className="col-lg-12">
                                         <div className="row g-4">
                                             {
-
+                                                data.filter((x)=>x.maincategory === "Male").map((item,index)=>{
+                                                           return <div key={index} className="col-md-6 col-lg-4 col-xl-3">
+                                                           <div className="rounded position-relative fruite-item">
+                                                               <div className="fruite-img">
+                                                                   <img src={item.pic[0]} style={{ height: 250 }} className="img-fluid w-100 rounded-top" alt="" />
+                                                               </div>
+                                                               <div className="text-white bg-dark px-3 py-1 rounded position-absolute" style={{ top: "10px", left: "10px" }}>{item.brand}</div>
+                                                               <div className="p-4 border border-dark border-top-0 rounded-bottom">
+                                                                   <Link to={`/product/${item.id}`}><h4 style={{ height: 50 }}>{item.name}</h4></Link>
+                                                                   <div className="d-flex justify-content-between flex-lg-wrap">
+                                                                       <p>&#8377;<del className='text-danger'>{item.basePrice}</del></p>
+                                                                       <p className={`${item.stock ? "text-success" : "text-danger"}`}>{item.stock ? `(In Stock / only ${item.quantity} Left)` : "(Out of Stock)"}</p>
+                                                                   </div>
+                                                                   <div className="d-flex justify-content-between flex-lg-wrap">
+                                                                       <p>&#8377;{item.finalPrice} <sup>{item.discount}% off</sup></p>
+                                                                       <Link to={`/product/${item.id}`} className="btn border border-info rounded-pill px-3 text-info"><i className="fa fa-shopping-bag me-2 text-info"></i> Add to cart</Link>
+                                                                   </div>
+                                                               </div>
+                                                           </div>
+                                                       </div>
+                                                })
                                             }
                                         </div>
                                     </div>
@@ -90,38 +113,32 @@ export default function Category({ title, data }) {
                                 <div className="row g-4">
                                     <div className="col-lg-12">
                                         <div className="row g-4">
-                                            <div className="col-md-6 col-lg-4 col-xl-3">
-                                                <div className="rounded position-relative fruite-item">
-                                                    <div className="fruite-img">
-                                                        <img src="img/fruite-item-1.jpg" className="img-fluid w-100 rounded-top" alt="" />
-                                                    </div>
-                                                    <div className="text-white bg-dark px-3 py-1 rounded position-absolute" style={{ top: "10px", left: "10px" }}>Fruits</div>
-                                                    <div className="p-4 border border-dark border-top-0 rounded-bottom">
-                                                        <h4>Oranges</h4>
-                                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                                                        <div className="d-flex justify-content-between flex-lg-wrap">
-                                                            <p className="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>
-                                                            <a href="#" className="btn border border-dark rounded-pill px-3 text-info"><i className="fa fa-shopping-bag me-2 text-info"></i> Add to cart</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="col-md-6 col-lg-4 col-xl-3">
-                                                <div className="rounded position-relative fruite-item">
-                                                    <div className="fruite-img">
-                                                        <img src="img/fruite-item-6.jpg" className="img-fluid w-100 rounded-top" alt="" />
-                                                    </div>
-                                                    <div className="text-white bg-dark px-3 py-1 rounded position-absolute" style={{ top: "10px", left: "10px" }}>Fruits</div>
-                                                    <div className="p-4 border border-dark border-top-0 rounded-bottom">
-                                                        <h4>Apple</h4>
-                                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                                                        <div className="d-flex justify-content-between flex-lg-wrap">
-                                                            <p className="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>
-                                                            <a href="#" className="btn border border-dark rounded-pill px-3 text-info"><i className="fa fa-shopping-bag me-2 text-info"></i> Add to cart</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            {
+                                                data.some((x) => x.maincategory === "Female")?
+                                                data.filter((x)=>x.maincategory === "Female").map((item,index)=>{
+                                                           return <div key={index} className="col-md-6 col-lg-4 col-xl-3">
+                                                           <div className="rounded position-relative fruite-item">
+                                                               <div className="fruite-img">
+                                                                   <img src={item.pic[0]} style={{ height: 250 }} className="img-fluid w-100 rounded-top" alt="" />
+                                                               </div>
+                                                               <div className="text-white bg-dark px-3 py-1 rounded position-absolute" style={{ top: "10px", left: "10px" }}>{item.brand}</div>
+                                                               <div className="p-4 border border-dark border-top-0 rounded-bottom">
+                                                                   <Link to={`/product/${item.id}`}><h4 style={{ height: 50 }}>{item.name}</h4></Link>
+                                                                   <div className="d-flex justify-content-between flex-lg-wrap">
+                                                                       <p>&#8377;<del className='text-danger'>{item.basePrice}</del></p>
+                                                                       <p className={`${item.stock ? "text-success" : "text-danger"}`}>{item.stock ? `(In Stock / only ${item.quantity} Left)` : "(Out of Stock)"}</p>
+                                                                   </div>
+                                                                   <div className="d-flex justify-content-between flex-lg-wrap">
+                                                                       <p>&#8377;{item.finalPrice} <sup>{item.discount}% off</sup></p>
+                                                                       <Link to={`/product/${item.id}`} className="btn border border-info rounded-pill px-3 text-info"><i className="fa fa-shopping-bag me-2 text-info"></i> Add to cart</Link>
+                                                                   </div>
+                                                               </div>
+                                                           </div>
+                                                       </div>
+                                                })
+                                                :
+                                                <p>No Female products available.</p>
+                                            }
                                         </div>
                                     </div>
                                 </div>
@@ -130,38 +147,32 @@ export default function Category({ title, data }) {
                                 <div className="row g-4">
                                     <div className="col-lg-12">
                                         <div className="row g-4">
-                                            <div className="col-md-6 col-lg-4 col-xl-3">
-                                                <div className="rounded position-relative fruite-item">
-                                                    <div className="fruite-img">
-                                                        <img src="img/fruite-item-5.jpg" className="img-fluid w-100 rounded-top" alt="" />
-                                                    </div>
-                                                    <div className="text-white bg-dark px-3 py-1 rounded position-absolute" style={{ top: "10px", left: "10px" }}>Fruits</div>
-                                                    <div className="p-4 border border-dark border-top-0 rounded-bottom">
-                                                        <h4>Grapes</h4>
-                                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                                                        <div className="d-flex justify-content-between flex-lg-wrap">
-                                                            <p className="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>
-                                                            <a href="#" className="btn border border-dark rounded-pill px-3 text-info"><i className="fa fa-shopping-bag me-2 text-info"></i> Add to cart</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="col-md-6 col-lg-4 col-xl-3">
-                                                <div className="rounded position-relative fruite-item">
-                                                    <div className="fruite-img">
-                                                        <img src="img/fruite-item-4.jpg" className="img-fluid w-100 rounded-top" alt="" />
-                                                    </div>
-                                                    <div className="text-white bg-dark px-3 py-1 rounded position-absolute" style={{ top: "10px", left: "10px" }}>Fruits</div>
-                                                    <div className="p-4 border border-dark border-top-0 rounded-bottom">
-                                                        <h4>Apricots</h4>
-                                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                                                        <div className="d-flex justify-content-between flex-lg-wrap">
-                                                            <p className="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>
-                                                            <a href="#" className="btn border border-dark rounded-pill px-3 text-info"><i className="fa fa-shopping-bag me-2 text-info"></i> Add to cart</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            {
+                                                data.some((x) => x.maincategory === "Kids")?
+                                                data.filter((x)=>x.maincategory === "Kids").map((item,index)=>{
+                                                           return <div key={index} className="col-md-6 col-lg-4 col-xl-3">
+                                                           <div className="rounded position-relative fruite-item">
+                                                               <div className="fruite-img">
+                                                                   <img src={item.pic[0]} style={{ height: 250 }} className="img-fluid w-100 rounded-top" alt="" />
+                                                               </div>
+                                                               <div className="text-white bg-dark px-3 py-1 rounded position-absolute" style={{ top: "10px", left: "10px" }}>{item.brand}</div>
+                                                               <div className="p-4 border border-dark border-top-0 rounded-bottom">
+                                                                   <Link to={`/product/${item.id}`}><h4 style={{ height: 50 }}>{item.name}</h4></Link>
+                                                                   <div className="d-flex justify-content-between flex-lg-wrap">
+                                                                       <p>&#8377;<del className='text-danger'>{item.basePrice}</del></p>
+                                                                       <p className={`${item.stock ? "text-success" : "text-danger"}`}>{item.stock ? `(In Stock / only ${item.quantity} Left)` : "(Out of Stock)"}</p>
+                                                                   </div>
+                                                                   <div className="d-flex justify-content-between flex-lg-wrap">
+                                                                       <p>&#8377;{item.finalPrice} <sup>{item.discount}% off</sup></p>
+                                                                       <Link to={`/product/${item.id}`} className="btn border border-info rounded-pill px-3 text-info"><i className="fa fa-shopping-bag me-2 text-info"></i> Add to cart</Link>
+                                                                   </div>
+                                                               </div>
+                                                           </div>
+                                                       </div>
+                                                })
+                                                :
+                                                <p>No Kid's products available.</p>
+                                            }
                                         </div>
                                     </div>
                                 </div>
@@ -170,54 +181,32 @@ export default function Category({ title, data }) {
                                 <div className="row g-4">
                                     <div className="col-lg-12">
                                         <div className="row g-4">
-                                            <div className="col-md-6 col-lg-4 col-xl-3">
-                                                <div className="rounded position-relative fruite-item">
-                                                    <div className="fruite-img">
-                                                        <img src="img/fruite-item-3.jpg" className="img-fluid w-100 rounded-top" alt="" />
-                                                    </div>
-                                                    <div className="text-white bg-dark px-3 py-1 rounded position-absolute" style={{ top: "10px", left: "10px" }}>Fruits</div>
-                                                    <div className="p-4 border border-dark border-top-0 rounded-bottom">
-                                                        <h4>Banana</h4>
-                                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                                                        <div className="d-flex justify-content-between flex-lg-wrap">
-                                                            <p className="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>
-                                                            <a href="#" className="btn border border-dark rounded-pill px-3 text-info"><i className="fa fa-shopping-bag me-2 text-info"></i> Add to cart</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="col-md-6 col-lg-4 col-xl-3">
-                                                <div className="rounded position-relative fruite-item">
-                                                    <div className="fruite-img">
-                                                        <img src="img/fruite-item-2.jpg" className="img-fluid w-100 rounded-top" alt="" />
-                                                    </div>
-                                                    <div className="text-white bg-dark px-3 py-1 rounded position-absolute" style={{ top: "10px", left: "10px" }}>Fruits</div>
-                                                    <div className="p-4 border border-dark border-top-0 rounded-bottom">
-                                                        <h4>Raspberries</h4>
-                                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                                                        <div className="d-flex justify-content-between flex-lg-wrap">
-                                                            <p className="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>
-                                                            <a href="#" className="btn border border-dark rounded-pill px-3 text-info"><i className="fa fa-shopping-bag me-2 text-info"></i> Add to cart</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="col-md-6 col-lg-4 col-xl-3">
-                                                <div className="rounded position-relative fruite-item">
-                                                    <div className="fruite-img">
-                                                        <img src="img/fruite-item-1.jpg" className="img-fluid w-100 rounded-top" alt="" />
-                                                    </div>
-                                                    <div className="text-white bg-dark px-3 py-1 rounded position-absolute" style={{ top: "10px", left: "10px" }}>Fruits</div>
-                                                    <div className="p-4 border border-dark border-top-0 rounded-bottom">
-                                                        <h4>Oranges</h4>
-                                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                                                        <div className="d-flex justify-content-between flex-lg-wrap">
-                                                            <p className="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>
-                                                            <a href="#" className="btn border border-dark rounded-pill px-3 text-info"><i className="fa fa-shopping-bag me-2 text-info"></i> Add to cart</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            {
+                                                 data.some((x) => x.maincategory === "Electronics")?
+                                                data.filter((x)=>x.maincategory === "Electronics").map((item,index)=>{
+                                                           return <div key={index} className="col-md-6 col-lg-4 col-xl-3">
+                                                           <div className="rounded position-relative fruite-item">
+                                                               <div className="fruite-img">
+                                                                   <img src={item.pic[0]} style={{ height: 250 }} className="img-fluid w-100 rounded-top" alt="" />
+                                                               </div>
+                                                               <div className="text-white bg-dark px-3 py-1 rounded position-absolute" style={{ top: "10px", left: "10px" }}>{item.brand}</div>
+                                                               <div className="p-4 border border-dark border-top-0 rounded-bottom">
+                                                                   <Link to={`/product/${item.id}`}><h4 style={{ height: 50 }}>{item.name}</h4></Link>
+                                                                   <div className="d-flex justify-content-between flex-lg-wrap">
+                                                                       <p>&#8377;<del className='text-danger'>{item.basePrice}</del></p>
+                                                                       <p className={`${item.stock ? "text-success" : "text-danger"}`}>{item.stock ? `(In Stock / only ${item.quantity} Left)` : "(Out of Stock)"}</p>
+                                                                   </div>
+                                                                   <div className="d-flex justify-content-between flex-lg-wrap">
+                                                                       <p>&#8377;{item.finalPrice} <sup>{item.discount}% off</sup></p>
+                                                                       <Link to={`/product/${item.id}`} className="btn border border-info rounded-pill px-3 text-info"><i className="fa fa-shopping-bag me-2 text-info"></i> Add to cart</Link>
+                                                                   </div>
+                                                               </div>
+                                                           </div>
+                                                       </div>
+                                                })
+                                                :
+                                                <p>No electronics products available.</p>
+                                            }
                                         </div>
                                     </div>
                                 </div>

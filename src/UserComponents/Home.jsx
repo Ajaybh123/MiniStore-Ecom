@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom'
 import {getProduct} from '../Redux/ActionCreator/ProductActionCreator'
 import {getMaincategory} from '../Redux/ActionCreator/MaincategoryActionCreator'
 import { useDispatch, useSelector } from 'react-redux'
+import Brandslider from './Partial/Brandslider'
 export default function Home() {
     let [products,setProducts] = useState([])
     let [maincategory,setMaincategory] = useState([])
@@ -76,9 +77,10 @@ export default function Home() {
                 </div>
             </div>
             {/* <!-- Hero End --> */}
-            <Category title="Products Category" data={products.slice(0,12)}/>
+            <Category title="Products Category" data={products}/>
             <Latest title="Latest Products" data={products.slice(0,10)} />
             <Bestsellar title="BestSeller Products" data={products.slice(0,9)} />
+            <Brandslider/>
             <Fact />
             <Testimonial />
         </>

@@ -17,6 +17,7 @@ export default function ShopContent() {
     let [flag, setFlag] = useState(false)
     let [min, setMin] = useState(0)
     let [max, setMax] = useState(0)
+    let [search, setSearch] = useState()
 
 
     let location = useLocation()
@@ -66,6 +67,12 @@ export default function ShopContent() {
         filterData(mc, sc, br, min, max)
     }
 
+    function postSearch(e) {
+        e.preventDefault()
+        let ch = search.toLowerCase()
+        setProducts(ProductStateData.filter((x) => x.name.toLowerCase().includes(ch) || x.maincategory.toLowerCase() === ch || x.subcategory.toLowerCase() === ch || x.brand.toLowerCase() === ch || x.color.toLowerCase() === ch || x.descripton?.toLowerCase().includes(ch)))
+    }
+
     useEffect(() => {
         (() => {
             dispatch(getProduct())
@@ -102,7 +109,7 @@ export default function ShopContent() {
         setSc(query.get("sc") ?? "All")
         setBr(query.get("br") ?? "All")
         filterData(query.get("mc") ?? "All", query.get("sc") ?? "All", query.get("br") ?? "All")
-    }, [location,ProductStateData.length])
+    }, [location, ProductStateData.length])
     return (
         <>
             {/* <!-- Fruits Shop Start--> */}
@@ -115,10 +122,12 @@ export default function ShopContent() {
                                     <h1 className="mb-4">Product shop</h1>
                                 </div>
                                 <div className="col-xl-3">
-                                    <div className="input-group w-100 mx-auto d-flex">
-                                        <input type="search" className="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1" />
-                                        <span id="search-icon-1" className="input-group-text p-3"><i className="fa fa-search"></i></span>
-                                    </div>
+                                    <form onSubmit={postSearch}>
+                                        <div className="input-group w-100 mx-auto d-flex">
+                                            <input type="search" name='search' onChange={(e) => setSearch(e.target.value)} className="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1" />
+                                            <button type='submit' id="search-icon-1" className="input-group-text p-3"><i className="fa fa-search"></i></button>
+                                        </div>
+                                    </form>
                                 </div>
                                 <div className="col-xl-3">
                                     <div className="bg-light ps-3 py-3 rounded d-flex justify-content-between mb-4">
@@ -223,7 +232,7 @@ export default function ShopContent() {
                                                             </div>
                                                             <div className="d-flex justify-content-between flex-lg-wrap">
                                                                 <p>&#8377;{item.finalPrice} <sup>{item.discount}% off</sup></p>
-                                                                <a href="#" className="btn border border-info rounded-pill px-3 text-info"><i className="fa fa-shopping-bag me-2 text-info"></i> Add to cart</a>
+                                                                <Link to={`/product/${item.id}`} className="btn border border-info rounded-pill px-3 text-info"><i className="fa fa-shopping-bag me-2 text-info"></i> Add to cart</Link>
                                                             </div>
                                                         </div>
                                                     </div>

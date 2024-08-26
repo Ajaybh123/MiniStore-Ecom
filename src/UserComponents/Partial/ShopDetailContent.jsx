@@ -26,6 +26,7 @@ export default function ShopDetailContent() {
     }
   return (
     <>
+    
       {/* <!-- Single Product Start --> */}
         <div className="container-fluid py-5 mt-5">
             <div className="container py-5">
