@@ -142,7 +142,7 @@ export default function Product() {
                                     </div>
                                     <div className='d-flex'>
                                         <Link to="#" className="btn border border-info rounded-pill mx-2 px-4 py-2 mb-4 text-info w-50"><i className="fa fa-shopping-bag me-2 text-info"></i> Add to cart</Link>
-                                        <Link to="#" className="btn border border-info rounded-pill mx-2 px-4 py-2 mb-4 text-info w-50"><i className="fa fa-heart me-2 text-danger"></i> Add to wishlist</Link>
+                                        <Link to="#" className="btn border border-info rounded-pill mx-2 px-4 py-2 mb-4 text-success w-50"><i className="fa fa-heart me-2 text-success"></i> Add to wishlist</Link>
                                     </div>
                                 </div>
                                 <div className="col-lg-12">

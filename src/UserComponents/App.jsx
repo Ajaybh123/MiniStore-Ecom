@@ -31,11 +31,12 @@ import AdminProduct from '../AdminComponents/AdminProduct/AdminProduct'
 import AdminCreateProduct from '../AdminComponents/AdminProduct/AdminCreateProduct'
 import AdminUpdateProduct from '../AdminComponents/AdminProduct/AdminUpdateProduct'
 import Product from './Product'
+import SignUp from './SignUp'
 
 export default function App() {
     const Layout = ({ children }) => {
         const location = useLocation();
-        const isAdminPath = location.pathname.startsWith('/admin');
+        const isAdminPath = location.pathname.startsWith('/admin') || location.pathname.startsWith('/login') || location.pathname.startsWith('/signup')
         
         return (
             <div>
@@ -60,6 +61,8 @@ export default function App() {
                     <Route path='/contact' element={<Contact />} />
                     <Route path='*' element={<Error404 />} />
 
+                    {/* authentication route */}
+                    <Route path='/signup' element={<SignUp/>} />
 
                     {/* admin route */}
                     <Route path='/admin' element={<AdminHome />} />
