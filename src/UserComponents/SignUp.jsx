@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import FormValidator from './FormValidators/FormValidator'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 export default function SignUp() {
     let navigate = useNavigate();
@@ -52,15 +52,46 @@ export default function SignUp() {
                 setShow(true)
             else {
                 let response = await fetch("/user", {
-                    method: "POST",
+                    method: "GET",
                     headers: {
                         "content-type": "application/json"
                     },
-                    body: JSON.stringify({ ...data })
                 })
                 response = await response.json()
-                if(response)
-                    navigate("/login")
+                if (response) {
+                    let item = response.find((x) => x.username === data.username || x.email === data.email)
+                    if (item) {
+                        setShow(true)
+                        setErrorMessage((old) => {
+                            return {
+                                ...old,
+                                "username": item.username === data.username ? "Username is already taken" : "",
+                                "email": item.email === data.email ? "Email is already taken" : ""
+                            }
+                        })
+                    }
+                    else {
+                        item = {
+                            name: data.name,
+                            username: data.username,
+                            email: data.email,
+                            phone: data.phone,
+                            password: data.password,
+                            role: "Buyer"
+
+                        }
+                        let response = await fetch("/user", {
+                            method: "POST",
+                            headers: {
+                                "content-type": "application/json"
+                            },
+                            body: JSON.stringify(item)
+                        })
+                        response = await response.json()
+                        if (response)
+                            navigate("/login")
+                    }
+                }
             }
         }
         else {
@@ -120,7 +151,10 @@ export default function SignUp() {
                             </div>
 
                             <div>
-                                <button type="submit" className='btn btn-info border-2 w-100 mt-3'>SignUp</button>
+                                <button type="submit" className='btn btn-info border-2 w-100 mt-4'>SignUp</button>
+                            </div>
+                            <div className='mt-2'>
+                                <Link to="/login" className='text-dark'>Have An Account?Login</Link>
                             </div>
                         </form>
                     </div>

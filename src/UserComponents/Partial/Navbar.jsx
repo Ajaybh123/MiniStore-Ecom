@@ -1,7 +1,15 @@
 import React from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 
 export default function Navbar() {
+    let navigate = useNavigate()
+
+    function logout() {
+        sessionStorage.removeItem("login")
+        sessionStorage.removeItem("name")
+        sessionStorage.removeItem("userid")
+        navigate('/login')
+    }
     return (
         <>
             {/* <!-- Navbar start --> */}
@@ -46,28 +54,25 @@ export default function Navbar() {
                                     sessionStorage.getItem("login") ?
                                         <div className="nav-item dropdown">
                                             <Link to="#" className="nav-link dropdown-toggle text-dark" data-bs-toggle="dropdown">{sessionStorage.getItem("name")}</Link>
-                                            {
-                                                sessionStorage.getItem("role") === "Buyer"?
-                                                <>
-                                                <div className="dropdown-menu m-0 bg-info rounded-0">
-                                                <Link to="/profile" className="dropdown-item">Profile</Link>
-                                                <Link to="/cart" className="dropdown-item">Cart</Link>
-                                                <Link to="/chackout" className="dropdown-item">Chackout</Link>
-                                                <Link to="" className="dropdown-item">Logout</Link>
+                                            <div className="dropdown-menu m-0 bg-info rounded-0">
+                                                {
+                                                    sessionStorage.getItem("role") === "Buyer" ?
+                                                        <>
+                                                            <Link to="/profile" className="dropdown-item">Profile</Link>
+                                                            <Link to="/cart" className="dropdown-item">Cart</Link>
+                                                            <Link to="/chackout" className="dropdown-item">Chackout</Link>
+                                                        </> :
+                                                        <Link to="/profile" className="dropdown-item">Profile</Link>
+                                                }
+                                                <button onClick={logout} className="dropdown-item">Logout</button>
                                             </div>
-                                                </>:
-                                                <div className="dropdown-menu m-0 bg-info rounded-0">
-                                                <Link to="/profile" className="dropdown-item">Profile</Link>
-                                                <Link to="" className="dropdown-item">Logout</Link>
-                                            </div>
-                                            }
-                                            
+
                                         </div>
-                                         :
+                                        :
                                         <div className='nav-item'>
-                                            <Link to="/signup" className="nav-link text-dark btn border-1 border-info">Login</Link>
+                                            <Link to="/login" className="nav-link text-dark btn border-1 border-info">Login</Link>
                                         </div>
-                                    }
+                                }
 
                             </div>
                         </div>
