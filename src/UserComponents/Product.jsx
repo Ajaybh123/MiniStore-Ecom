@@ -5,7 +5,10 @@ import 'owl.carousel/dist/assets/owl.theme.default.css'
 import Breadcrum from './Partial/Breadcrum';
 
 import { getProduct } from '../Redux/ActionCreator/ProductActionCreator'
-import { Link, useParams } from 'react-router-dom';
+import { getCart,createCart} from '../Redux/ActionCreator/CartActionCreator'
+import { getWishlist,createWishlist } from '../Redux/ActionCreator/WishlistActionCreator'
+
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 export default function Product() {
 
@@ -30,13 +33,57 @@ export default function Product() {
         navText: ['<button class="btn border border-dark text-info" style:"width:80px;border-radius:50px"><i class="fa fa-arrow-left"></i></button>', '<button class="btn border border-dark text-info"><i class="fa fa-arrow-right"></i></button>']
     }
 
-    let [products, setProduct] = useState({ pic: [] })
+    let [product, setProduct] = useState({ pic: [] })
     let [relatedProduct, SetRelatedProduct] = useState([])
     let [qty, setQty] = useState(1)
+    let [cart,setCart] = useState([])
+    let [wishlist,setWishlist] = useState([])
 
     let { id } = useParams()
     let dispatch = useDispatch()
+    let navigate = useNavigate()
+
     let ProductStateData = useSelector(state => state.ProductStateData)
+    let CartStateData = useSelector(state => state.CartStateData)
+    let WishlistStateData = useSelector(state => state.WishlistStateData)
+
+    function addTocard(){
+        let item = cart.find((x)=>x.user===sessionStorage.getItem("userid") && x.product === id)
+        if(!item){
+            item = {
+                user:sessionStorage.getItem("userid"),
+                product:id,
+                name:product.name,
+                brand:product.brand,
+                color:product.color,
+                size:product.size,
+                price:product.finalPrice,
+                qty:qty,
+                total:product.finalPrice*qty,
+                pic:product.pic[0]
+            }
+            dispatch(createCart({...item}))
+        }
+        navigate('/cart')
+    }
+
+    function addTowishlist(){
+        let item = wishlist.find((x)=>x.user===sessionStorage.getItem("userid") && x.product === id)
+        if(!item){
+            item = {
+                user:sessionStorage.getItem("userid"),
+                product:id,
+                name:product.name,
+                brand:product.brand,
+                color:product.color,
+                size:product.size,
+                price:product.finalPrice,
+                pic:product.pic[0]
+            }
+            dispatch(createWishlist({...item}))
+        }
+        navigate('/wishlist')
+    }
 
     useEffect(() => {
         (() => {
@@ -47,7 +94,23 @@ export default function Product() {
                 SetRelatedProduct(ProductStateData.filter((x) => x.maincategory === item.maincategory))
             }
         })()
-    }, [ProductStateData.length])
+    }, [ProductStateData.length,window.location.href])
+
+    useEffect(()=>{
+        (()=>{
+            dispatch(getCart())
+            if(CartStateData.length)
+                setCart(CartStateData.filter((x)=> x.user === sessionStorage.getItem("userid")))
+        })()
+    },[CartStateData.length])
+
+    useEffect(()=>{
+        (()=>{
+            dispatch(getWishlist())
+            if(WishlistStateData.length)
+                setWishlist(WishlistStateData.filter((x)=> x.user === sessionStorage.getItem("userid")))
+        })()
+    },[WishlistStateData.length])
     return (
         <>
             {/* <!-- Single Product Start --> */}
@@ -63,17 +126,17 @@ export default function Product() {
                                             <div class="carousel-indicators">
                                                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                                                 {
-                                                    products.pic.slice(1).map((item, index) => {
+                                                    product.pic.slice(1).map((item, index) => {
                                                         return <button key={index} type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to={index + 1} aria-label={`Slide ${index + 1}`}></button>
                                                     })
                                                 }
                                             </div>
                                             <div class="carousel-inner">
                                                 <div class="carousel-item active">
-                                                    <img src={products.pic[0]} height={450} width="100%" class="d-block w-100" alt="..." />
+                                                    <img src={product.pic[0]} height={450} width="100%" class="d-block w-100" alt="..." />
                                                 </div>
                                                 {
-                                                    products.pic.slice(1).map((item, index) => {
+                                                    product.pic.slice(1).map((item, index) => {
                                                         return <div key={index} class="carousel-item">
                                                             <img src={item} height={450} width="100%" class="d-block w-100" alt="..." />
                                                         </div>
@@ -93,36 +156,36 @@ export default function Product() {
                                     </div>
                                 </div>
                                 <div className="col-lg-6">
-                                    <h4 className="fw-bold mb-3">{products.name}</h4>
+                                    <h4 className="fw-bold mb-3">{product.name}</h4>
                                     <table className='table'>
                                         <tbody>
                                             <tr>
                                                 <th>Maincategory</th>
-                                                <td>{products.maincategory}</td>
+                                                <td>{product.maincategory}</td>
                                             </tr>
                                             <tr>
                                                 <th>Maincategory</th>
-                                                <td>{products.subcategory}</td>
+                                                <td>{product.subcategory}</td>
                                             </tr>
                                             <tr>
                                                 <th>Brand</th>
-                                                <td>{products.brand}</td>
+                                                <td>{product.brand}</td>
                                             </tr>
                                             <tr>
                                                 <th>Color/Size</th>
-                                                <td>{products.color}/{products.size}</td>
+                                                <td>{product.color}/{product.size}</td>
                                             </tr>
                                             <tr>
                                                 <th>Stock</th>
-                                                <td>{products.stock ? `Yes /${products.quantity} Left in Stock` : ""}</td>
+                                                <td>{product.stock ? `Yes /${product.quantity} Left in Stock` : ""}</td>
                                             </tr>
                                             <tr>
                                                 <th>Fare Price</th>
-                                                <td>&#8377;<del className='text-danger'>{products.basePrice}</del></td>
+                                                <td>&#8377;<del className='text-danger'>{product.basePrice}</del></td>
                                             </tr>
                                             <tr>
                                                 <th>Discount Price</th>
-                                                <td>&#8377;{products.finalPrice} <sup>{products.discount}%</sup></td>
+                                                <td>&#8377;{product.finalPrice} <sup>{product.discount}%</sup></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -135,14 +198,14 @@ export default function Product() {
                                         </div>
                                         <input type="text" className="form-control form-control-sm text-center border-0" value={qty} />
                                         <div className="input-group-btn">
-                                            <button onClick={() => qty < products.quantity ? setQty(qty + 1) : ""} className="btn btn-sm btn-plus rounded-circle bg-light border">
+                                            <button onClick={() => qty < product.quantity ? setQty(qty + 1) : ""} className="btn btn-sm btn-plus rounded-circle bg-light border">
                                                 <i className="fa fa-plus"></i>
                                             </button>
                                         </div>
                                     </div>
                                     <div className='d-flex'>
-                                        <Link to="#" className="btn border border-info rounded-pill mx-2 px-4 py-2 mb-4 text-info w-50"><i className="fa fa-shopping-bag me-2 text-info"></i> Add to cart</Link>
-                                        <Link to="#" className="btn border border-info rounded-pill mx-2 px-4 py-2 mb-4 text-success w-50"><i className="fa fa-heart me-2 text-success"></i> Add to wishlist</Link>
+                                        <Link to="/cart" onClick={addTocard} className="btn border border-info rounded-pill mx-2 px-4 py-2 mb-4 text-info w-50"><i className="fa fa-shopping-bag me-2 text-info"></i> Add To Cart</Link>
+                                        <Link to="/wishlist" onClick={addTowishlist} className="btn border border-info rounded-pill mx-2 px-4 py-2 mb-4 text-success w-50"><i className="fa fa-heart me-2 text-success"></i> Add To Wishlist</Link>
                                     </div>
                                 </div>
                                 <div className="col-lg-12">
@@ -158,7 +221,7 @@ export default function Product() {
                                     </nav>
                                     <div className="tab-content mb-5">
                                         <div className="tab-pane active" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab">
-                                            <p dangerouslySetInnerHTML={{ __html: products.description }} />
+                                            <p dangerouslySetInnerHTML={{ __html: product.description }} />
                                             <div className="px-2">
                                                 <div className="row g-4">
                                                     <div className="col-6">
@@ -333,7 +396,7 @@ export default function Product() {
                                     </div>
                                 </div>
                                 <div className="col-lg-12">
-                                    <h4 className="mb-4">Featured products</h4>
+                                    <h4 className="mb-4">Featured product</h4>
                                     <div className="d-flex align-items-center justify-content-start">
                                         <div className="rounded" style={{ width: "100px", height: "100px" }}>
                                             <img src="img/featur-1.jpg" className="img-fluid rounded" alt="Image" />
@@ -463,7 +526,7 @@ export default function Product() {
                             </div>
                         </div>
                     </div>
-                    <h1 className="fw-bold mb-0">Related products</h1>
+                    <h1 className="fw-bold mb-0">Related product</h1>
                     <div className="vesitable">
                         <div className="vegetable-carousel justify-content-center">
                             <OwlCarousel className='owl-theme' {...option}>

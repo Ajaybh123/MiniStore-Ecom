@@ -30,7 +30,7 @@ export default function Profile() {
                     <div className="row mx-3">
                         <div className="col-md-6">
                             {
-                                user.pic?
+                                user?.pic?
                                 <img src={user.pic} height={350} width="100%" alt="user image" />:
                                 <img src='/img/avatar.jpg' height={350} width="100%" alt="user image" />
                             }
