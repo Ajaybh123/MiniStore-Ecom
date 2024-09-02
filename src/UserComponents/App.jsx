@@ -35,6 +35,7 @@ import SignUp from './SignUp'
 import Login from './Login'
 import Profile from './Profile'
 import UpdateProfile from './UpdateProfile'
+import Cart from './Partial/Cart'
 
 export default function App() {
     const Layout = ({ children }) => {
@@ -67,6 +68,7 @@ export default function App() {
                     {/* user route */}
                     <Route path='/Profile' element={<Profile />} />
                     <Route path='/update-profile' element={<UpdateProfile />} />
+                    <Route path='/cart' element={<Cart />} />
 
                     {/* authentication route */}
                     <Route path='/signup' element={<SignUp/>} />

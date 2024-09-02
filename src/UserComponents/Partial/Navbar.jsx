@@ -1,8 +1,15 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
+
+import {getCart} from '../../Redux/ActionCreator/CartActionCreator'
+import { useDispatch, useSelector } from 'react-redux'
 
 export default function Navbar() {
     let navigate = useNavigate()
+    let dispatch = useDispatch()
+    let [cart,setCart] = useState(0)
+    let [flag, setFlag] = useState(false)
+    let CartStateData = useSelector(state=>state.CartStateData)
 
     function logout() {
         sessionStorage.removeItem("login")
@@ -10,6 +17,13 @@ export default function Navbar() {
         sessionStorage.removeItem("userid")
         navigate('/login')
     }
+
+    useEffect(()=>{
+        dispatch(getCart())
+        if(CartStateData.length)
+            setCart(CartStateData.length)
+           setFlag(!flag)
+    },[CartStateData.length])
     return (
         <>
             {/* <!-- Navbar start --> */}
@@ -47,7 +61,7 @@ export default function Navbar() {
                                 <button className="btn-search btn border border-info btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal"><i className="fas fa-search text-info"></i></button>
                                 <a href="#" className="position-relative me-4 my-auto">
                                     <i className="fa fa-shopping-bag fa-2x"></i>
-                                    <span className="position-absolute bg-dark rounded-circle d-flex align-items-center justify-content-center text-white px-1" style={{ top: "-5px", left: "15px", height: "20px", minWidth: "20px" }}>3</span>
+                                    <Link to="/cart" className="position-absolute bg-dark rounded-circle d-flex align-items-center justify-content-center text-white px-1" style={{ top: "-5px", left: "15px", height: "20px", minWidth: "20px" }}>{cart}</Link>
                                 </a>
 
                                 {

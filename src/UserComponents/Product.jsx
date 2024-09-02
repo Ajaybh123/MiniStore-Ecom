@@ -60,7 +60,8 @@ export default function Product() {
                 price:product.finalPrice,
                 qty:qty,
                 total:product.finalPrice*qty,
-                pic:product.pic[0]
+                pic:product.pic[0],
+                quantity:product.quantity
             }
             dispatch(createCart({...item}))
         }
@@ -78,7 +79,8 @@ export default function Product() {
                 color:product.color,
                 size:product.size,
                 price:product.finalPrice,
-                pic:product.pic[0]
+                pic:product.pic[0],
+                quantity:product.quantity
             }
             dispatch(createWishlist({...item}))
         }
@@ -177,7 +179,7 @@ export default function Product() {
                                             </tr>
                                             <tr>
                                                 <th>Stock</th>
-                                                <td>{product.stock ? `Yes /${product.quantity} Left in Stock` : ""}</td>
+                                                <td>{product.stock ? `Yes /${product.quantity} Left in Stock` : "Out of stock"}</td>
                                             </tr>
                                             <tr>
                                                 <th>Fare Price</th>
@@ -190,7 +192,10 @@ export default function Product() {
                                         </tbody>
                                     </table>
 
-                                    <div className="input-group quantity mb-4" style={{ width: "100px" }}>
+                                    {
+                                        product.stock?
+                                        <>
+                                        <div className="input-group quantity mb-4" style={{ width: "100px" }}>
                                         <div className="input-group-btn">
                                             <button onClick={() => qty > 1 ? setQty(qty - 1) : ""} className="btn btn-sm btn-minus rounded-circle bg-light border" >
                                                 <i className="fa fa-minus"></i>
@@ -207,6 +212,12 @@ export default function Product() {
                                         <Link to="/cart" onClick={addTocard} className="btn border border-info rounded-pill mx-2 px-4 py-2 mb-4 text-info w-50"><i className="fa fa-shopping-bag me-2 text-info"></i> Add To Cart</Link>
                                         <Link to="/wishlist" onClick={addTowishlist} className="btn border border-info rounded-pill mx-2 px-4 py-2 mb-4 text-success w-50"><i className="fa fa-heart me-2 text-success"></i> Add To Wishlist</Link>
                                     </div>
+                                        </>:
+                                        <div className='d-flex'>
+                                        <Link to="/wishlist" onClick={addTowishlist} className="btn border border-info rounded-pill mx-2 px-4 py-2 mb-4 text-success w-50"><i className="fa fa-heart me-2 text-success"></i> Add To Wishlist</Link>
+                                    </div>
+                                    }
+                                    
                                 </div>
                                 <div className="col-lg-12">
                                     <nav>
