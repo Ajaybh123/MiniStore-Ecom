@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import FormValidator from './FormValidators/FormValidator'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 export default function UpdateProfile() {
     let navigate = useNavigate();

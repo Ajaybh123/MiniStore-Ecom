@@ -5,8 +5,8 @@ import 'owl.carousel/dist/assets/owl.theme.default.css'
 import Breadcrum from './Partial/Breadcrum';
 
 import { getProduct } from '../Redux/ActionCreator/ProductActionCreator'
-import { getCart,createCart} from '../Redux/ActionCreator/CartActionCreator'
-import { getWishlist,createWishlist } from '../Redux/ActionCreator/WishlistActionCreator'
+import { getCart, createCart } from '../Redux/ActionCreator/CartActionCreator'
+import { getWishlist, createWishlist } from '../Redux/ActionCreator/WishlistActionCreator'
 
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -36,8 +36,8 @@ export default function Product() {
     let [product, setProduct] = useState({ pic: [] })
     let [relatedProduct, SetRelatedProduct] = useState([])
     let [qty, setQty] = useState(1)
-    let [cart,setCart] = useState([])
-    let [wishlist,setWishlist] = useState([])
+    let [cart, setCart] = useState([])
+    let [wishlist, setWishlist] = useState([])
 
     let { id } = useParams()
     let dispatch = useDispatch()
@@ -47,42 +47,42 @@ export default function Product() {
     let CartStateData = useSelector(state => state.CartStateData)
     let WishlistStateData = useSelector(state => state.WishlistStateData)
 
-    function addTocard(){
-        let item = cart.find((x)=>x.user===sessionStorage.getItem("userid") && x.product === id)
-        if(!item){
+    function addTocard() {
+        let item = cart.find((x) => x.user === sessionStorage.getItem("userid") && x.product === id)
+        if (!item) {
             item = {
-                user:sessionStorage.getItem("userid"),
-                product:id,
-                name:product.name,
-                brand:product.brand,
-                color:product.color,
-                size:product.size,
-                price:product.finalPrice,
-                qty:qty,
-                total:product.finalPrice*qty,
-                pic:product.pic[0],
-                quantity:product.quantity
+                user: sessionStorage.getItem("userid"),
+                product: id,
+                name: product.name,
+                brand: product.brand,
+                color: product.color,
+                size: product.size,
+                price: product.finalPrice,
+                qty: qty,
+                total: product.finalPrice * qty,
+                pic: product.pic[0],
+                quantity: product.quantity
             }
-            dispatch(createCart({...item}))
+            dispatch(createCart({ ...item }))
         }
         navigate('/cart')
     }
 
-    function addTowishlist(){
-        let item = wishlist.find((x)=>x.user===sessionStorage.getItem("userid") && x.product === id)
-        if(!item){
+    function addTowishlist() {
+        let item = wishlist.find((x) => x.user === sessionStorage.getItem("userid") && x.product === id)
+        if (!item) {
             item = {
-                user:sessionStorage.getItem("userid"),
-                product:id,
-                name:product.name,
-                brand:product.brand,
-                color:product.color,
-                size:product.size,
-                price:product.finalPrice,
-                pic:product.pic[0],
-                quantity:product.quantity
+                user: sessionStorage.getItem("userid"),
+                product: id,
+                name: product.name,
+                brand: product.brand,
+                color: product.color,
+                size: product.size,
+                price: product.finalPrice,
+                pic: product.pic[0],
+                quantity: product.quantity
             }
-            dispatch(createWishlist({...item}))
+            dispatch(createWishlist({ ...item }))
         }
         navigate('/wishlist')
     }
@@ -96,23 +96,23 @@ export default function Product() {
                 SetRelatedProduct(ProductStateData.filter((x) => x.maincategory === item.maincategory))
             }
         })()
-    }, [ProductStateData.length,window.location.href])
+    }, [ProductStateData.length, window.location.href])
 
-    useEffect(()=>{
-        (()=>{
+    useEffect(() => {
+        (() => {
             dispatch(getCart())
-            if(CartStateData.length)
-                setCart(CartStateData.filter((x)=> x.user === sessionStorage.getItem("userid")))
+            if (CartStateData.length)
+                setCart(CartStateData.filter((x) => x.user === sessionStorage.getItem("userid")))
         })()
-    },[CartStateData.length])
+    }, [CartStateData.length])
 
-    useEffect(()=>{
-        (()=>{
+    useEffect(() => {
+        (() => {
             dispatch(getWishlist())
-            if(WishlistStateData.length)
-                setWishlist(WishlistStateData.filter((x)=> x.user === sessionStorage.getItem("userid")))
+            if (WishlistStateData.length)
+                setWishlist(WishlistStateData.filter((x) => x.user === sessionStorage.getItem("userid")))
         })()
-    },[WishlistStateData.length])
+    }, [WishlistStateData.length])
     return (
         <>
             {/* <!-- Single Product Start --> */}
@@ -193,31 +193,31 @@ export default function Product() {
                                     </table>
 
                                     {
-                                        product.stock?
-                                        <>
-                                        <div className="input-group quantity mb-4" style={{ width: "100px" }}>
-                                        <div className="input-group-btn">
-                                            <button onClick={() => qty > 1 ? setQty(qty - 1) : ""} className="btn btn-sm btn-minus rounded-circle bg-light border" >
-                                                <i className="fa fa-minus"></i>
-                                            </button>
-                                        </div>
-                                        <input type="text" className="form-control form-control-sm text-center border-0" value={qty} />
-                                        <div className="input-group-btn">
-                                            <button onClick={() => qty < product.quantity ? setQty(qty + 1) : ""} className="btn btn-sm btn-plus rounded-circle bg-light border">
-                                                <i className="fa fa-plus"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div className='d-flex'>
-                                        <Link to="/cart" onClick={addTocard} className="btn border border-info rounded-pill mx-2 px-4 py-2 mb-4 text-info w-50"><i className="fa fa-shopping-bag me-2 text-info"></i> Add To Cart</Link>
-                                        <Link to="/wishlist" onClick={addTowishlist} className="btn border border-info rounded-pill mx-2 px-4 py-2 mb-4 text-success w-50"><i className="fa fa-heart me-2 text-success"></i> Add To Wishlist</Link>
-                                    </div>
-                                        </>:
-                                        <div className='d-flex'>
-                                        <Link to="/wishlist" onClick={addTowishlist} className="btn border border-info rounded-pill mx-2 px-4 py-2 mb-4 text-success w-50"><i className="fa fa-heart me-2 text-success"></i> Add To Wishlist</Link>
-                                    </div>
+                                        product.stock ?
+                                            <>
+                                                <div className="input-group quantity mb-4" style={{ width: "100px" }}>
+                                                    <div className="input-group-btn">
+                                                        <button onClick={() => qty > 1 ? setQty(qty - 1) : ""} className="btn btn-sm btn-minus rounded-circle bg-light border" >
+                                                            <i className="fa fa-minus"></i>
+                                                        </button>
+                                                    </div>
+                                                    <input type="text" className="form-control form-control-sm text-center border-0" value={qty} />
+                                                    <div className="input-group-btn">
+                                                        <button onClick={() => qty < product.quantity ? setQty(qty + 1) : ""} className="btn btn-sm btn-plus rounded-circle bg-light border">
+                                                            <i className="fa fa-plus"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div className='d-flex'>
+                                                    <Link to="/cart" onClick={addTocard} className="btn border border-info rounded-pill mx-2 px-4 py-2 mb-4 text-info w-50"><i className="fa fa-shopping-bag me-2 text-info"></i> Add To Cart</Link>
+                                                    <Link to="/wishlist" onClick={addTowishlist} className="btn border border-info rounded-pill mx-2 px-4 py-2 mb-4 text-success w-50"><i className="fa fa-heart me-2 text-success"></i> Add To Wishlist</Link>
+                                                </div>
+                                            </> :
+                                            <div className='d-flex'>
+                                                <Link to="/wishlist" onClick={addTowishlist} className="btn border border-info rounded-pill mx-2 px-4 py-2 mb-4 text-success w-50"><i className="fa fa-heart me-2 text-success"></i> Add To Wishlist</Link>
+                                            </div>
                                     }
-                                    
+
                                 </div>
                                 <div className="col-lg-12">
                                     <nav>

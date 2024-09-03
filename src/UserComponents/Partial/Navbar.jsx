@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 
-import {getCart} from '../../Redux/ActionCreator/CartActionCreator'
+import { getCart } from '../../Redux/ActionCreator/CartActionCreator'
 import { useDispatch, useSelector } from 'react-redux'
 
 export default function Navbar() {
     let navigate = useNavigate()
     let dispatch = useDispatch()
-    let [cart,setCart] = useState(0)
-    let [flag, setFlag] = useState(false)
-    let CartStateData = useSelector(state=>state.CartStateData)
+    let [cart, setCart] = useState(0)
+    let CartStateData = useSelector(state => state.CartStateData)
 
     function logout() {
         sessionStorage.removeItem("login")
@@ -18,12 +17,13 @@ export default function Navbar() {
         navigate('/login')
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(getCart())
-        if(CartStateData.length)
+        if (CartStateData.length)
             setCart(CartStateData.length)
-           setFlag(!flag)
-    },[CartStateData.length])
+        else
+        setCart(0)
+    }, [CartStateData.length])
     return (
         <>
             {/* <!-- Navbar start --> */}
@@ -74,7 +74,7 @@ export default function Navbar() {
                                                         <>
                                                             <Link to="/profile" className="dropdown-item">Profile</Link>
                                                             <Link to="/cart" className="dropdown-item">Cart</Link>
-                                                            <Link to="/chackout" className="dropdown-item">Chackout</Link>
+                                                            <Link to="/checkout" className="dropdown-item">Checkout</Link>
                                                         </> :
                                                         <Link to="/profile" className="dropdown-item">Profile</Link>
                                                 }
