@@ -72,13 +72,13 @@ export default function Navbar() {
                                                 {
                                                     sessionStorage.getItem("role") === "Buyer" ?
                                                         <>
-                                                            <Link to="/profile" className="dropdown-item">Profile</Link>
-                                                            <Link to="/cart" className="dropdown-item">Cart</Link>
-                                                            <Link to="/checkout" className="dropdown-item">Checkout</Link>
+                                                            <Link to="/profile" className="dropdown-item"><i className='fa fa-user pe-2'></i> My Profile</Link>
+                                                            <Link to="/order" className="dropdown-item"><i className='fa fa-shopping-bag pe-2'></i> Order</Link>
+                                                            <Link to="/wishlist" className="dropdown-item"><i className='fa fa-heart pe-2'></i> Wishlist</Link>
                                                         </> :
-                                                        <Link to="/profile" className="dropdown-item">Profile</Link>
+                                                        <Link to="/profile" className="dropdown-item"><i className='fa fa-user pe-2'></i> My Profile</Link>
                                                 }
-                                                <button onClick={logout} className="dropdown-item">Logout</button>
+                                                <button onClick={logout} className="dropdown-item"><i className='fa fa-sign-out-alt pe-2'></i> Logout</button>
                                             </div>
 
                                         </div>

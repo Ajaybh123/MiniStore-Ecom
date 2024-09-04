@@ -1,4 +1,6 @@
-
+body{
+    background-color: rgb(229, 228, 228) !important;
+}
 /*** Spinner Start ***/
 .background{
     background-image: url("/img/signup.jpg");
@@ -13,6 +15,19 @@
         margin: 40px 40px 40px 40px;
     }
 }
+
+.profil_side{
+    margin: 0;
+}
+
+.extra{
+    margin: 0;
+}
+
+.order:hover{
+ background: #fff;
+}
+
 .category_dropdown{
     height: 460px;
     overflow: auto;

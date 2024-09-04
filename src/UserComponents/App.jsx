@@ -38,6 +38,9 @@ import UpdateProfile from './UpdateProfile'
 import Cart from './Cart'
 import Checkout from './Checkout'
 import Confirmation from './Confirmation'
+import Wishlist from './Wishlist'
+import Order from './Order'
+import OrderDetail from './OrderDetail'
 
 export default function App() {
     const Layout = ({ children }) => {
@@ -72,6 +75,9 @@ export default function App() {
                     <Route path='/update-profile' element={<UpdateProfile />} />
                     <Route path='/cart' element={<Cart />} />
                     <Route path='/checkout' element={<Checkout />} />
+                    <Route path='/wishlist' element={<Wishlist />} />
+                    <Route path='/order' element={<Order />} />
+                    <Route path='/order_detail/:id' element={<OrderDetail />} />
                     <Route path='/confirmation' element={<Confirmation />} />
 
                     {/* authentication route */}
