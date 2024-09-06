@@ -91,8 +91,9 @@ export default function AdminCreateTestimonial() {
                 <MainContent>
                     <Navbar />
                     <div className="container-fluid my-3">
-                        <div className="d-flex bg-info text-center p-2  justify-content-between rounded mb-3">
-                            <h4>Testimonial</h4>
+                        <div className="mx-3">
+                        <div className="d-flex bg-info text-center p-2  justify-content-between rounded mb-3 my-4">
+                        <span className='text-white fs-4'>Testimonial</span>
                             <Link to="/admin/testimonial" className='btn btn-dark'><i className='fa fa-arrow-left'></i> Back</Link>
                         </div>
 
@@ -125,6 +126,7 @@ export default function AdminCreateTestimonial() {
                                 <button type='submit' className='btn btn-info w-100 border-2'>Create</button>
                             </div>
                         </form>
+                        </div>
                     </div>
 
                 </MainContent>

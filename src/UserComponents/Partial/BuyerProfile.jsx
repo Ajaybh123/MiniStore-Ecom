@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { NavLink, Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import UserSidebar from './UserSidebar'
 
 export default function BuyerProfile(props) {
@@ -26,9 +26,9 @@ export default function BuyerProfile(props) {
     return (
         props.title ?
             <>
-                <div className="container mt-4">
+                <div className={`${props.title === "OrderDetail" ? "" : "container mt-4"}`}>
                     <div className="testimonial-item ms-2 img-border-radius shadow-sm bg-white p-3">
-                        <h5>Delivery Address <span className='float-end'><Link to='/update-profile' className='btn border-1 border-info'>Change</Link></span></h5>
+                        <h5>Delivery Address {props.title === "OrderDetail" ? "" : <span className='float-end'><Link to='/update-profile' className='btn border-1 border-info'>Change</Link></span>}</h5>
                         <span><strong>{user.name}</strong>, {user.address}, {user.city}, {user.state}-<strong>{user.pin}</strong>, (+91) {user.phone}</span>
                     </div>
                 </div>
@@ -41,7 +41,6 @@ export default function BuyerProfile(props) {
 
                     <div className="col-md-9">
                         <div className="testimonial-item ms-2 img-border-radius shadow-sm bg-white p-4">
-
                             <div className="mt-3">
                                 <h3 className='border-bottom border-2 mb-4'>Information</h3>
                                 <div className="row">
@@ -86,7 +85,7 @@ export default function BuyerProfile(props) {
                                     </div>
                                 </div>
                                 <div>
-                                    <NavLink to='/update-profile' className='btn bg-info text-dark w-100'>Update Profile</NavLink>
+                                    <Link to='/update-profile' className='btn bg-info text-dark w-100'>Update Profile</Link>
                                 </div>
 
                             </div>

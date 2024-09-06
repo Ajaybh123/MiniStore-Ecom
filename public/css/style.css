@@ -1,5 +1,5 @@
 body{
-    background-color: rgb(229, 228, 228) !important;
+    background-color: rgb(246, 244, 244) !important;
 }
 /*** Spinner Start ***/
 .background{
@@ -20,9 +20,20 @@ body{
     margin: 0;
 }
 
+table th{
+    text-align: center !important;
+    color: black;
+}
+
+.hello{
+    cursor: pointer !important;
+}
+
 .extra{
     margin: 0;
 }
+
+
 
 .order:hover{
  background: #fff;
@@ -555,3 +566,6 @@ body{
 
 /*** Footer End ***/
 
+.order-status span{
+    padding-left: 40px;
+}

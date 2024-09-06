@@ -13,9 +13,9 @@ export default function Menulist() {
         <li className='menu-list-item'><Link to='/admin/product'><i className='fa fa-list'></i>Product</Link></li>
         <li className='menu-list-item'><Link to='/admin/testimonial'><i className='fa fa-star'></i>Testimonial</Link></li>
         <li className='menu-list-item'><Link to='/admin/users'><i className='fa fa-users'></i>Users</Link></li>
-        <li className='menu-list-item'><Link to='/admin/newletter'><i className='fa fa-envelope'></i>Newletters</Link></li>
+        <li className='menu-list-item'><Link to='/admin/newsletter'><i className='fa fa-envelope'></i>Newletters</Link></li>
         <li className='menu-list-item'><Link to='/admin/contacts'><i className='fa fa-phone'></i>Contacts</Link></li>
-        <li className='menu-list-item'><Link to='/admin/checkout'><i className='fa fa-shopping-bag'></i>Checkouts</Link></li>
+        <li className='menu-list-item'><Link to='/admin/checkout'><i className='fa fa-shopping-bag'></i>Orders</Link></li>
     </ul>
     </>
   )

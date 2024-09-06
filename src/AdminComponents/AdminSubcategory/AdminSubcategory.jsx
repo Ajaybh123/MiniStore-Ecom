@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 export default function AdminSubcategory() {
     let [data, setData] = useState([])
     let dispatch = useDispatch()
+    let count = 1;
     let SubcategoryStateData = useSelector(state => state.SubcategoryStateData)
 
 
@@ -26,11 +27,11 @@ export default function AdminSubcategory() {
 
     function getAPIData() {
         dispatch(getSubcategory())
-        if (SubcategoryStateData.length){
+        if (SubcategoryStateData.length) {
             setData(SubcategoryStateData)
-            setTimeout(()=>{
-            $('#dataTable').DataTable()
-            },100)
+            setTimeout(() => {
+                $('#dataTable').DataTable()
+            }, 100)
         }
         else
             setData([])
@@ -40,7 +41,7 @@ export default function AdminSubcategory() {
         getAPIData()
     }, [SubcategoryStateData.length])
 
-   
+
     return (
         <>
             <div className='app d-flex'>
@@ -48,13 +49,13 @@ export default function AdminSubcategory() {
                 <MainContent>
                     <Navbar />
                     <div className="container-fluid my-3">
-                        <div className="d-flex border-bottom border-2 text-center p-2  justify-content-between rounded mx-3 my-4">
-                            <h4>Subcategory</h4>
+                        <div className="d-flex bg-info text-center p-2  justify-content-between rounded mx-3 my-4">
+                            <span className='text-white fs-4'>Subcategory</span>
                             <Link to="/admin/subcategory/create" className='btn btn-dark'><i className='fa fa-plus'></i> Add</Link>
                         </div>
 
                         <div className='table-responsive text-center mx-3'>
-                            <table className='table table-bordered display' id='dataTable' style={{width:"100%"}}>
+                            <table className='table table-bordered display' id='dataTable' style={{ width: "100%" }}>
                                 <thead>
                                     <tr>
                                         <th>Id</th>
@@ -68,10 +69,10 @@ export default function AdminSubcategory() {
                                     {
                                         data.map((item, index) => {
                                             return <tr key={index}>
-                                                <td>{item.id}</td>
+                                                <td className='text-center'>{count++}</td>
                                                 <td>{item.name}</td>
-                                                <td className={`${item.active ? "text-success" : "text-danger"}`}>{item.active ? "Yes" : "No"}</td>
-                                                <td><Link to={`/admin/subcategory/update/${item.id}`} className='btn'><i className='fa fa-edit text-success'></i></Link></td>
+                                                <td><span className={`${item.active ? "bg-success" : "bg-danger"} px-2 rounded text-white hello`}>{item.active ? "Yes" : "No"}</span></td>
+                                                <td><Link to={`/admin/subcategory/update/${item.id}`} className='btn'><i className='fa fa-edit text-primary'></i></Link></td>
                                                 <td><button className='btn' onClick={() => deleteItem(item.id)}><i className='fa fa-trash text-danger'></i></button></td>
                                             </tr>
                                         })

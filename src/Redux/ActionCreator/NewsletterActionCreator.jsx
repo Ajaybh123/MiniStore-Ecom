@@ -1,28 +1,28 @@
-import { ADD_Newsletter, DELETE_Newsletter, GET_Newsletter, UPDATE_Newsletter } from "../Constants";
+import { ADD_NEWSLETTER, DELETE_NEWSLETTER, GET_NEWSLETTER, UPDATE_NEWSLETTER } from "../Constants";
 
 export function createNewsletter(data) {
     return {
-        type: ADD_Newsletter,
+        type: ADD_NEWSLETTER,
         payload: data
     }
 }
 
 export function getNewsletter() {
     return {
-        type: GET_Newsletter
+        type: GET_NEWSLETTER
     }
 }
 
 export function updateNewsletter(data) {
     return {
-        type: UPDATE_Newsletter,
+        type: UPDATE_NEWSLETTER,
         payload: data
     }
 }
 
 export function deleteNewsletter(data) {
     return {
-        type: DELETE_Newsletter,
+        type: DELETE_NEWSLETTER,
         payload: data
     }
 }

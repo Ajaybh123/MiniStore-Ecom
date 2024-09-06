@@ -83,30 +83,32 @@ export default function AdminCreateSubcategory() {
                 <MainContent>
                     <Navbar />
                     <div className="container-fluid my-3">
-                        <div className="d-flex bg-info text-center p-2  justify-content-between rounded mb-3">
-                            <h4>Subcategory</h4>
-                            <Link to="/admin/subcategory" className='btn btn-dark'><i className='fa fa-arrow-left'></i> Back</Link>
-                        </div>
+                        <div className="mx-3">
+                            <div className="d-flex bg-info text-center p-2  justify-content-between rounded mb-3 my-4">
+                                <span className='text-white fs-4'>Subcategory</span>
+                                <Link to="/admin/subcategory" className='btn btn-dark'><i className='fa fa-arrow-left'></i> Back</Link>
+                            </div>
 
-                        <form onSubmit={postData}>
-                            <div className="row">
-                                <div className="col-md-6 mb-3">
-                                    <label>Name*</label>
-                                    <input type="text" name="name" onChange={getInputData} className={`form-control border-2 ${show && errorMessage.name ? 'border-danger' : 'border-dark'} `} placeholder='Subcategory Name' />
-                                    {show && errorMessage.name ? <p className='text-danger text-capitalize'>{errorMessage.name}</p> : ""}
+                            <form onSubmit={postData}>
+                                <div className="row">
+                                    <div className="col-md-6 mb-3">
+                                        <label>Name*</label>
+                                        <input type="text" name="name" onChange={getInputData} className={`form-control border-2 ${show && errorMessage.name ? 'border-danger' : 'border-dark'} `} placeholder='Subcategory Name' />
+                                        {show && errorMessage.name ? <p className='text-danger text-capitalize'>{errorMessage.name}</p> : ""}
+                                    </div>
+                                    <div className="col-md-6 mb-3">
+                                        <label>Active*</label>
+                                        <select name="active" onChange={getInputData} className='form-control border-2 border-dark'>
+                                            <option value="1">Yes</option>
+                                            <option value="0">No</option>
+                                        </select>
+                                    </div>
                                 </div>
-                                <div className="col-md-6 mb-3">
-                                    <label>Active*</label>
-                                    <select name="active" onChange={getInputData} className='form-control border-2 border-dark'>
-                                        <option value="1">Yes</option>
-                                        <option value="0">No</option>
-                                    </select>
+                                <div className='mb-3'>
+                                    <button type='submit' className='btn btn-info w-100 border-2'>Create</button>
                                 </div>
-                            </div>
-                            <div className='mb-3'>
-                                <button type='submit' className='btn btn-info w-100 border-2'>Create</button>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
 
                 </MainContent>

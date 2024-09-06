@@ -8,27 +8,38 @@ import $ from "jquery"
 import "datatables.net"
 import "datatables.net-dt/css/dataTables.dataTables.css"
 
-import { getMaincategory, deleteMaincategory } from '../../Redux/ActionCreator/MaincategoryActionCreator'
+import { getNewsletter, deleteNewsletter, updateNewsletter } from '../../Redux/ActionCreator/NewsletterActionCreator'
 import { useDispatch, useSelector } from 'react-redux';
 
-export default function AdminMaincategory() {
+export default function AdminNewsletter() {
     let [data, setData] = useState([])
+    let [flag,setFlag] = useState(false)
     let dispatch = useDispatch()
     let count = 1;
-    let MaincategoryStateData = useSelector(state => state.MaincategoryStateData)
-
+    let NewsletterStateData = useSelector(state => state.NewsletterStateData)
 
     function deleteItem(id) {
         if (window.confirm("Are you really want to delete that item?")) {
-            dispatch(deleteMaincategory({ id: id }))
+            dispatch(deleteNewsletter({ id: id }))
             getAPIData()
         }
     }
 
+    function updateRecord(id) {
+        if (window.confirm("Are you really want to delete that item?")) {
+            let item = NewsletterStateData.find((x)=>x.id === id)
+            let index = NewsletterStateData.findIndex((x)=>x.id === id)
+            dispatch(updateNewsletter({ ...item,active: !item.active }))
+            setFlag(!flag)
+            data[index].active = !item.active
+        }
+    }
+    
+
     function getAPIData() {
-        dispatch(getMaincategory())
-        if (MaincategoryStateData.length) {
-            setData(MaincategoryStateData)
+        dispatch(getNewsletter())
+        if (NewsletterStateData.length) {
+            setData(NewsletterStateData)
             setTimeout(() => {
                 $('#dataTable').DataTable()
             }, 100)
@@ -39,7 +50,7 @@ export default function AdminMaincategory() {
 
     useEffect(() => {
         getAPIData()
-    }, [MaincategoryStateData.length])
+    }, [NewsletterStateData.length])
 
 
     return (
@@ -49,19 +60,17 @@ export default function AdminMaincategory() {
                 <MainContent>
                     <Navbar />
                     <div className="container-fluid my-3">
-                        <div className="d-flex text-center p-2 bg-info  justify-content-between rounded mx-3 my-4">
-                            <span className='text-white fs-4'>Maincategory</span>
-                            <Link to="/admin/maincategory/create" className='btn btn-dark'><i className='fa fa-plus'></i> Add</Link>
+                    <div className="text-center p-2 bg-info rounded mx-3 my-4">
+                            <span className='text-white fs-4'>Newsletter</span>
                         </div>
 
                         <div className='table-responsive text-center mx-3'>
-                            <table className='table table-bordered table-hover display' id='dataTable' style={{ width: "100%" }}>
+                            <table className='table table-bordered display' id='dataTable' style={{ width: "100%" }}>
                                 <thead>
                                     <tr>
-                                        <th>S.NO</th>
-                                        <th>Name</th>
+                                        <th>S.No</th>
+                                        <th>Email</th>
                                         <th>Active</th>
-                                        <th>Edit</th>
                                         <th>Delete</th>
                                     </tr>
                                 </thead>
@@ -70,9 +79,8 @@ export default function AdminMaincategory() {
                                         data.map((item, index) => {
                                             return <tr key={index}>
                                                 <td className='text-center'>{count++}</td>
-                                                <td>{item.name}</td>
-                                                <td><span className={`${item.active ? "bg-success" : "bg-danger"} px-2 rounded text-white hello`}>{item.active ? "Yes" : "No"}</span></td>
-                                                <td><Link to={`/admin/maincategory/update/${item.id}`} className='btn'><i className='fa fa-edit text-primary'></i></Link></td>
+                                                <td>{item.email}</td>
+                                                <td onClick={()=>updateRecord(item.id)}><span className={`${item.active?"bg-success":"bg-danger"} px-2 rounded text-white hello`}>{item.active ? "Yes" : "No"}</span></td>
                                                 <td><button className='btn' onClick={() => deleteItem(item.id)}><i className='fa fa-trash text-danger'></i></button></td>
                                             </tr>
                                         })

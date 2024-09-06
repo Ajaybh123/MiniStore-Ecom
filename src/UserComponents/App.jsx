@@ -41,6 +41,12 @@ import Confirmation from './Confirmation'
 import Wishlist from './Wishlist'
 import Order from './Order'
 import OrderDetail from './OrderDetail'
+import AdminNewsletter from '../AdminComponents/AdminNewsletter/AdminNewsletter'
+import AdminUser from '../AdminComponents/AdminUser/AdminUser'
+import AdminContactUs from '../AdminComponents/AdminContactUs/AdminContactUs'
+import AdminContactUsShow from '../AdminComponents/AdminContactUs/AdminContactUsShow'
+import AdminOrder from '../AdminComponents/AdminOrder/AdminOrder'
+import AdminOrderShow from '../AdminComponents/AdminOrder/AdminOrderShow'
 
 export default function App() {
     const Layout = ({ children }) => {
@@ -106,6 +112,17 @@ export default function App() {
                     <Route path='/admin/product' element={<AdminProduct />} />
                     <Route path='/admin/product/create' element={<AdminCreateProduct />} />
                     <Route path='/admin/product/update/:id' element={<AdminUpdateProduct />} />
+
+                    <Route path='/admin/newsletter' element={<AdminNewsletter />} />
+                    <Route path='/admin/users' element={<AdminUser />} />
+
+                    <Route path='/admin/contacts' element={<AdminContactUs />} />
+                    <Route path='/admin/contacts/show/:id' element={<AdminContactUsShow />} />
+
+                    <Route path='/admin/checkout' element={<AdminOrder />} />
+                    <Route path='/admin/checkout/show/:id' element={<AdminOrderShow />} />
+
+
                 </Routes>
             </Layout>
         </BrowserRouter>

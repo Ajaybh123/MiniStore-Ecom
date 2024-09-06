@@ -38,7 +38,7 @@ export default function Order() {
                     <div className="col-md-9">
                         <div className="testimonial-item ms-2 img-border-radius shadow-sm bg-white mb-3">
                             <h5 className='px-4 py-3'>My Order History</h5>
-                            
+
                         </div>
 
                         <div>
@@ -64,7 +64,7 @@ export default function Order() {
                                                             <span><strong>Brand</strong>: {product.brand}</span>,
                                                             <span><strong>Color</strong>: {product.color}</span>,
                                                             <span><strong>Size</strong>: {product.size}</span>
-                                                            <p>&#8377; {product.price}</p>
+                                                            <p>&#8377; {product.total}</p>
                                                         </div>
 
                                                     </div>
@@ -72,6 +72,7 @@ export default function Order() {
                                                 </div>
                                             </div>
                                         ))}
+                                        
                                     </div>
                                 </div>
                             ))}

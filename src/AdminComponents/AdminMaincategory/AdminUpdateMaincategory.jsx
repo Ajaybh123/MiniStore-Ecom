@@ -85,8 +85,9 @@ export default function AdminUpdateMaincategory() {
                 <MainContent>
                     <Navbar />
                     <div className="container-fluid my-3">
-                        <div className="d-flex bg-info text-center p-2  justify-content-between rounded mb-3">
-                            <h4>Maincategory</h4>
+                        <div className="mx-3">
+                        <div className="d-flex bg-info text-center p-2  justify-content-between rounded mb-3 my-4">
+                        <span className='text-white fs-4'>Maincategory</span>
                             <Link to="/admin/maincategory" className='btn btn-dark'><i className='fa fa-arrow-left'></i> Back</Link>
                         </div>
 
@@ -109,6 +110,7 @@ export default function AdminUpdateMaincategory() {
                                 <button type='submit' className='btn btn-info w-100 border-2'>Update</button>
                             </div>
                         </form>
+                        </div>
                     </div>
 
                 </MainContent>

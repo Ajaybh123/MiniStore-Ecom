@@ -150,12 +150,13 @@ export default function AdminUpdateProduct() {
                 <MainContent>
                     <Navbar />
                     <div className="container-fluid my-3">
-                        <div className="d-flex bg-info text-center p-2  justify-content-between rounded mb-3">
-                            <h4>Product</h4>
+                        <div className="mx-3">
+                        <div className="d-flex bg-info text-center p-2  justify-content-between rounded mb-3 my-4">
+                        <span className='text-white fs-4'>Product</span >
                             <Link to="/admin/product" className='btn btn-dark'><i className='fa fa-arrow-left'></i> Back</Link>
                         </div>
 
-                        <form onSubmit={postData} className='mx-3'>
+                        <form onSubmit={postData}>
                             <div className="mb-3">
                                 <label>Name*</label>
                                 <input type="text" name="name" value={data.name} onChange={getInputData} className={`form-control border-2 ${show && errorMessage.name ? 'border-danger' : 'border-dark'} `} placeholder='Product Name' />
@@ -277,6 +278,7 @@ export default function AdminUpdateProduct() {
                                 <button type='submit' className='btn btn-info w-100 border-2'>Update</button>
                             </div>
                         </form>
+                        </div>
                     </div>
 
                 </MainContent>

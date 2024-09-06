@@ -15,6 +15,7 @@ export default function AdminProduct() {
     const tableRef = useRef()
     let [data, setData] = useState([])
     let dispatch = useDispatch()
+    let count = 1;
     let ProductStateData = useSelector(state => state.ProductStateData)
 
 
@@ -49,16 +50,16 @@ export default function AdminProduct() {
                 <MainContent>
                     <Navbar />
                     <div className="container-fluid my-3">
-                        <div className="d-flex border-bottom border-2 text-center p-2  justify-content-between rounded mx-3 my-4">
-                            <h4>Product</h4>
+                        <div className="d-flex bg-info text-center p-2  justify-content-between rounded mx-3 my-4">
+                            <span className='text-white fs-4'>Product</span >
                             <Link to="/admin/product/create" className='btn btn-dark'><i className='fa fa-plus'></i> Add</Link>
                         </div>
 
                         <div className='table-responsive mx-3'>
-                            <table className='table table-bordered display' id='dataTable' style={{ width: "100%" }}>
+                            <table className='table table-bordered display text-center' id='dataTable' style={{ width: "100%" }}>
                                 <thead>
                                     <tr>
-                                        <th>Id</th>
+                                        <th>S.No</th>
                                         <th>Name</th>
                                         <th>Maincategory</th>
                                         <th>Subcategory</th>
@@ -80,12 +81,12 @@ export default function AdminProduct() {
                                     {
                                         data.map((item, index) => {
                                             return <tr key={index}>
-                                                <td>{item.id}</td>
+                                                <td className='text-center'>{count++}</td>
                                                 <td>{item.name}</td>
                                                 <td>{item.maincategory}</td>
                                                 <td>{item.subcategory}</td>
                                                 <td>{item.brand}</td>
-                                                <td className={`${item.stock ? "text-success" : "text-danger"}`}>{item.stock ? "Yes" : "No"}</td>
+                                                <td><span className={`${item.stock ? "bg-success" : "bg-danger"} px-2 rounded text-white`}>{item.stock ? "Yes" : "No"}</span></td>
                                                 <td>{item.color}</td>
                                                 <td>{item.size}</td>
                                                 <td>&#8377;{item.basePrice}</td>
@@ -93,18 +94,18 @@ export default function AdminProduct() {
                                                 <td>&#8377;{item.finalPrice}</td>
                                                 <td>{item.quantity}</td>
                                                 <td>
-                                                    <div style={{width:300}}>
-                                                    {
-                                                        item.pic.map((img, index) => {
-                                                            return <Link key={index} to={`${img}`} target='_blank' rel='noreferrer'>
-                                                                <img src={img} height={50} width={50} style={{marginLeft:5,marginBottom:5}} alt="product img" />
-                                                            </Link>
-                                                        })
-                                                    }
+                                                    <div style={{ width: 300 }}>
+                                                        {
+                                                            item.pic.map((img, index) => {
+                                                                return <Link key={index} to={`${img}`} target='_blank' rel='noreferrer'>
+                                                                    <img src={img} height={50} width={50} style={{ marginLeft: 5, marginBottom: 5 }} alt="product img" />
+                                                                </Link>
+                                                            })
+                                                        }
                                                     </div>
                                                 </td>
-                                                <td className={`${item.active ? "text-success" : "text-danger"}`}>{item.active ? "Yes" : "No"}</td>
-                                                <td><Link to={`/admin/product/update/${item.id}`} className='btn'><i className='fa fa-edit text-success'></i></Link></td>
+                                                <td><span className={`${item.active ? "bg-success" : "bg-danger"} px-2 rounded text-white hello`}>{item.active ? "Yes" : "No"}</span></td>
+                                                <td><Link to={`/admin/product/update/${item.id}`} className='btn'><i className='fa fa-edit text-primary'></i></Link></td>
                                                 <td><button className='btn' onClick={() => deleteItem(item.id)}><i className='fa fa-trash text-danger'></i></button></td>
                                             </tr>
                                         })

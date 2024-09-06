@@ -21,13 +21,13 @@ export default function CartSection(props) {
     function placeOrder() {
         let item = {
             user: sessionStorage.getItem("userid"),
-            orderStatus: "Order is Placed",
+            orderStatus: "Order Confirmed",
             paymentMode: mode,
             paymentStatus: "Pending",
             subtotal: subtotal,
             delivery: delivery,
             total: total,
-            data: new Date(),
+            date: new Date(),
             products: cart
         }
         dispatch(createCheckout(item))
